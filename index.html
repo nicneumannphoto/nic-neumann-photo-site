@@ -273,34 +273,36 @@
   </sc-if>
 
   <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:100;background:#FAF2EB;overflow-y:auto">
-      <div style="position:sticky;top:0;z-index:2;background:rgba(250,242,235,0.96);border-bottom:1px solid rgba(193,173,140,0.6);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 20px">
-        <button onClick="{{ closeGallery }}" style="justify-self:start;border:0;background:transparent;cursor:pointer;padding:10px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">← All galleries</button>
-        <span style="font:400 24px/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
-        <button onClick="{{ closeGallery }}" aria-label="Close" style="justify-self:end;border:1px solid #372017;background:transparent;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
+    <div style="position:fixed;inset:0;z-index:100;background:#372017;color:#FAF2EB;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px">
+        <button onClick="{{ closeGallery }}" style="justify-self:start;border:0;background:transparent;color:#FAF2EB;cursor:pointer;padding:10px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">← Back</button>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+          <span style="font:400 26px/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
+          <span style="font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#C1AD8C">{{ gallery.count }}</span>
+        </div>
+        <button onClick="{{ closeGallery }}" aria-label="Close" style="justify-self:end;border:1px solid #FAF2EB;background:transparent;color:#FAF2EB;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
       </div>
-      <div style="max-width:1280px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:56px">
-        <p style="margin:0 auto;max-width:560px;text-align:center;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif">{{ gallery.sub }}</p>
+      <div style="position:relative;flex:1;min-height:0;margin:0 clamp(12px,3vw,40px)">
         <sc-if value="{{ gallery.hasPhotos }}" hint-placeholder-val="{{ true }}">
-          <div style="columns:3 260px;column-gap:14px">
-            <sc-for list="{{ gallery.photos }}" as="p" hint-placeholder-count="9">
-              <img src="{{ p.src }}" alt="{{ p.alt }}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;margin:0 0 14px;break-inside:avoid;background:#F1E6DA">
-            </sc-for>
-          </div>
+          <sc-for list="{{ gallery.photos }}" as="p" hint-placeholder-count="1">
+            <sc-if value="{{ p.near }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ p.src }}" alt="{{ p.alt }}" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:{{ p.op }};transition:opacity 1.2s ease">
+            </sc-if>
+          </sc-for>
         </sc-if>
         <sc-if value="{{ gallery.noPhotos }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:14px">
-            <sc-for list="{{ gallery.slots }}" as="g" hint-placeholder-count="9">
-              <div style="position:relative;aspect-ratio:4/5;background:#F1E6DA">
-                <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.ph }}"></image-slot>
-              </div>
-            </sc-for>
-          </div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif;color:#C1AD8C">Gallery coming soon</div>
         </sc-if>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center">
-          <p style="margin:0;font:400 clamp(26px,3vw,34px)/1.2 'Crimson Pro',Georgia,serif;letter-spacing:.08em;text-transform:uppercase">Love what you see?</p>
-          <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:18px 36px;cursor:pointer;font:500 12px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#372017">Let’s start planning</button>
+        <button onClick="{{ galPrev }}" aria-label="Previous photo" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">←</button>
+        <button onClick="{{ galNext }}" aria-label="Next photo" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">→</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:18px 20px 22px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px">
+          <sc-for list="{{ gallery.tabs }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.go }}" style="border:0;border-bottom:1px solid {{ t.line }};background:transparent;color:{{ t.color }};cursor:pointer;padding:8px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ t.label }}</button>
+          </sc-for>
         </div>
+        <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
       </div>
     </div>
   </sc-if>
@@ -359,7 +361,7 @@ class Component extends DCLogic {
       if (id && id !== 'availability') { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 40); }
       else if (id === 'availability') window.scrollTo(0, 0);
     });
-    this.onKey = (e) => { if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
+    this.onKey = (e) => { if (this.state.gallery && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { this.galStep(e.key === 'ArrowRight' ? 1 : -1); this.startGalTimer(); return; } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
     this.onResize = () => { const w = window.innerWidth >= 640; if (w !== this.state.wide) this.setState({ wide: w }); };
     this.onResize(); window.addEventListener('resize', this.onResize);
     window.addEventListener('scroll', this.onScroll, { passive: true });
@@ -375,7 +377,7 @@ class Component extends DCLogic {
     clearInterval(this.timer); clearInterval(this.dataTimer);
     window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize);
     window.removeEventListener('hashchange', this.onHash);
-    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('keydown', this.onKey); clearInterval(this.galTimer);
   }
   tileCount() { return parseInt(this.props.heroTiles ?? '3', 10); }
   startTimer() {
@@ -384,12 +386,24 @@ class Component extends DCLogic {
     const per = (this.props.heroSpeed ?? 9) * 1000;
     let col = 0;
     this.timer = setInterval(() => {
-      this.setState(s => { const f = s.frames.slice(); f[col] = (f[col] + 1) % 3; return { frames: f, mob: ((s.mob || 0) + 1) % (n * 3) }; });
+      this.setState(s => { const f = s.frames.slice(); f[col] = (f[col] + 1) % 4; return { frames: f, mob: ((s.mob || 0) + 1) % (n * 4) }; });
       col = (col + 1) % n;
     }, per / n);
   }
-  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, hover: null }); }
-  closeGallery = () => { if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
+  galKeys() { const G = window.NNP_GALLERIES || {}; return [...this.cats, ...this.moreCats].filter(c => (G[c.key] || []).length).map(c => c.key); }
+  galStep(d) {
+    const G = window.NNP_GALLERIES || {}; const keys = this.galKeys();
+    this.setState(s => {
+      if (!s.gallery) return null;
+      let k = s.gallery, i = (s.gIdx || 0) + d; const len = (G[k] || []).length;
+      if (i >= len) { k = keys[(keys.indexOf(k) + 1) % keys.length]; i = 0; }
+      else if (i < 0) { k = keys[(keys.indexOf(k) - 1 + keys.length) % keys.length]; i = (G[k] || []).length - 1; }
+      return { gallery: k, gIdx: i };
+    });
+  }
+  startGalTimer() { clearInterval(this.galTimer); this.galTimer = setInterval(() => this.galStep(1), 14000); }
+  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, gIdx: 0, hover: null }); this.startGalTimer(); }
+  closeGallery = () => { clearInterval(this.galTimer); if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
   renderVals() {
     const n = this.tileCount();
     const { frames, hover, quote } = this.state;
@@ -401,7 +415,7 @@ class Component extends DCLogic {
     };
     const shoutTitle = this.props.shoutTitle ?? 'Notes From Friends';
     const hero = Array.from({ length: n }, (_, c) => ({
-      frames: [0, 1, 2].map(f => ({ id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of 3`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
+      frames: [0, 1, 2, 3].map(f => ({ id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of 4`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
       dots: [0, 1, 2].map(f => ({ bg: frames[c] === f ? '#FAF2EB' : 'transparent', onClick: () => this.setState(s => { const fr = s.frames.slice(); fr[c] = f; return { frames: fr }; }) })),
     }));
     if (this.state.wide === false) {
@@ -420,7 +434,14 @@ class Component extends DCLogic {
     const allCats = allList.map((c, i) => ({ ...mk(c), offset: offs[i % 3] }));
     const g = allList.find(c => c.key === this.state.gallery);
     const gp = g ? ((window.NNP_GALLERIES || {})[g.key] || []) : [];
-    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, photos: gp.map((src, i) => ({ src, alt: `${g.label} photo ${i + 1}` })), slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })) } : { label: '', sub: '', slots: [] };
+    const gi = Math.min(this.state.gIdx || 0, Math.max(gp.length - 1, 0));
+    const gkeys = this.galKeys();
+    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gi + 1} / ${gp.length}` : '',
+      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: `${g.label} photo ${i + 1}`, op: i === gi ? 1 : 0 }; }),
+      slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })),
+      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, gIdx: 0 }); this.startGalTimer(); } })) } : { label: '', sub: '', slots: [], photos: [], tabs: [] };
+    const galPrev = () => { this.galStep(-1); this.startGalTimer(); };
+    const galNext = () => { this.galStep(1); this.startGalTimer(); };
     const widths = ['260px', '340px', '260px', '560px', '260px', '320px', '260px', '480px', '260px', '340px'];
     const reelSrc = (window.NNP_GALLERIES || {}).reel || [];
     const reel = widths.map((w, i) => ({ id: `reel-${i + 1}`, src: reelSrc[i] || '', w: `min(${w}, 78vw)`, video: false, ph: (i === 1 || i === 5 || i === 8) ? 'Video clip (poster frame)' : 'Recent photo' }));
@@ -432,7 +453,7 @@ class Component extends DCLogic {
       barY: this.state.scrolled ? '0%' : '-105%',
       shoutTitle, shoutNav: shoutMap[shoutTitle] ?? shoutTitle,
       hero, heroMax: n === 3 ? '1360px' : '1200px', heroCol: n === 3 ? 'max(calc(33.333% - 10px), min(100%, calc((640px - 100%) * 999)))' : 'max(calc(25% - 11px), min(calc(50% - 7px), calc((760px - 100%) * 999)))',
-      cats, allCats, galleryOpen: !!g, gallery, closeGallery: this.closeGallery,
+      cats, allCats, galleryOpen: !!g, gallery, galPrev, galNext, closeGallery: this.closeGallery,
       portfolioOpen: !!this.state.portfolio,
       openPortfolio: () => { document.body.style.overflow = 'hidden'; this.setState({ portfolio: true, hover: null }); },
       closePortfolio: () => { document.body.style.overflow = ''; this.setState({ portfolio: false, gallery: null }); },
