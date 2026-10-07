@@ -1,0 +1,22 @@
+# Computer clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tools and local settings
+node_modules/
+.netlify/
+.vscode/
+.idea/
+.env
+
+# Full-size originals and working files (keep these out of the repo)
+originals/
+*.psd
+*.tif
+*.tiff
+*.cr2
+*.cr3
+*.nef
+*.arw
+*.dng
