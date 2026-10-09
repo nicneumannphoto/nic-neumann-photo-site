@@ -49,7 +49,7 @@
           <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#F1E6DA">
             <sc-for list="{{ col.frames }}" as="fr" hint-placeholder-count="3">
               <div style="position:absolute;inset:0;opacity:{{ fr.op }};filter:opacity(0.9);pointer-events:{{ fr.pe }};transition:opacity 1.8s ease">
-                <image-slot id="{{ fr.id }}" shape="rect" src="{{ fr.src }}" placeholder="{{ fr.ph }}"></image-slot>
+                <img src="{{ fr.src }}" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
               </div>
             </sc-for>
           </div>
@@ -75,7 +75,7 @@
           <div style="display:flex;flex-direction:column;gap:16px;padding-top:{{ c.offset }}">
             <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#F1E6DA">
               <div style="position:absolute;inset:0;transform:scale({{ c.scale }});transition:transform 1.4s cubic-bezier(.2,.7,.2,1)">
-                <image-slot id="{{ c.slot }}" shape="rect" src="{{ c.src }}" placeholder="{{ c.ph }}"></image-slot>
+                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
               </div>
               <div style="position:absolute;inset:0;pointer-events:none;background:rgba(55,32,23,0.48);opacity:{{ c.scrim }};transition:opacity .6s ease"></div>
               <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 10px rgba(55,32,23,0.62)"></div>
@@ -101,10 +101,10 @@
     <div style="position:relative;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:56px;align-items:center">
       <div style="position:relative;width:100%;max-width:480px;justify-self:center;padding:0 0 56px 0">
         <div style="position:relative;width:82%;aspect-ratio:2/3;background:#F1E6DA;border:10px solid #FAF2EB">
-          <image-slot id="about-portrait" shape="rect" src="assets/nic-seated.jpg" placeholder="Portrait of Nic"></image-slot>
+          <img src="assets/nic-seated.jpg" alt="Nic Neumann" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div style="position:absolute;right:0;bottom:0;width:44%;aspect-ratio:4/5;border:8px solid #FAF2EB;background:#F1E6DA">
-          <image-slot id="about-portrait-2" shape="rect" src="assets/nic-portrait.jpg" placeholder="Second portrait of Nic"></image-slot>
+          <img src="assets/nic-portrait.jpg" alt="Nic Neumann" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:20px;max-width:560px;background:#FAF2EB;padding:clamp(28px,4vw,52px);justify-self:center">
@@ -150,7 +150,7 @@
     <div ref="{{ reelRef }}" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 24px 0 calc(clamp(84px,9vw,112px) + 96px);scroll-padding:0 24px 0 calc(clamp(84px,9vw,112px) + 96px)">
       <sc-for list="{{ reel }}" as="r" hint-placeholder-count="8">
         <div style="position:relative;flex:none;width:{{ r.w }};height:clamp(300px,42vw,440px);scroll-snap-align:start;background:#F1E6DA;opacity:0.7;transition:opacity .5s ease" style-hover="opacity:1">
-          <image-slot id="{{ r.id }}" shape="rect" src="{{ r.src }}" placeholder="{{ r.ph }}"></image-slot>
+          <img src="{{ r.src }}" alt="Recent work" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
           <sc-if value="{{ r.video }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;top:14px;right:14px;pointer-events:none;display:flex;align-items:center;gap:8px;padding:7px 12px 7px 10px;background:rgba(250,242,235,0.92);font:500 10px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
               <span style="width:0;height:0;border-left:7px solid #372017;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent"></span>Film
@@ -164,7 +164,7 @@
 
   <section style="position:relative;height:clamp(510px,82vh,880px);overflow:hidden;background:#4a3024">
     <div style="position:absolute;inset:0">
-      <image-slot id="cta-photo" shape="rect" src="{{ ctaSrc }}" placeholder="Closing photo — a couple or family, wide and warm"></image-slot>
+      <img src="{{ ctaSrc }}" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
     </div>
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom, rgba(55,32,23,0.25), rgba(55,32,23,0.62))"></div>
     <div style="position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;text-align:center;color:#FAF2EB">
@@ -252,7 +252,7 @@
           <div style="display:flex;flex-direction:column;gap:16px;padding-top:{{ c.offset }}">
             <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#F1E6DA">
               <div style="position:absolute;inset:0;transform:scale({{ c.scale }});transition:transform 1.4s cubic-bezier(.2,.7,.2,1)">
-                <image-slot id="{{ c.slot }}" shape="rect" src="{{ c.src }}" placeholder="{{ c.ph }}"></image-slot>
+                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
               </div>
               <div style="position:absolute;inset:0;pointer-events:none;background:rgba(55,32,23,0.48);opacity:{{ c.scrim }};transition:opacity .6s ease"></div>
               <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 10px rgba(55,32,23,0.62)"></div>

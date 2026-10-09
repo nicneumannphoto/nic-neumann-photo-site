@@ -1,22 +1,15 @@
-# Nic Neumann Photography
+# Nic Neumann Photography — website
 
-Live site: https://nicneumannphoto.com
+## Publish (GitHub → Netlify)
+1. Create a new GitHub repo and upload everything in this folder (index.html at the top level).
+2. In Netlify: Add new site → Import an existing project → GitHub → pick the repo. Leave build command empty, publish directory `/`. Deploy.
+3. Inquiries go through Formspree (form mppqppqv) — manage email + submissions at formspree.io.
+4. Domain management → Add domain → nicneumannphoto.com, then update DNS at your registrar as Netlify instructs.
 
-Static site hosted on GitHub Pages (deploys from `main`, root folder). The inquiry form sends through Formspree (form `mppqppqv`). The `CNAME` file points the site at nicneumannphoto.com — don't delete it.
+## After launch
+- Submit a test inquiry and confirm the email arrives.
+- Availability calendar link for clients: https://nicneumannphoto.com/#availability
+- Make sure the Google Calendar is public (free/busy is enough).
 
-## Adding photos
-1. Export from Lightroom with the web preset (JPEG, sRGB, 2400 px long edge, quality 80) into the matching folder in `photos/` (weddings, families, seniors, headshots, couples). Use names like `weddings-065.jpg`.
-2. Double-click `tools/update-galleries.command`. It updates `gallery-data.js` and warns about oversized files or bad filenames.
-3. Open GitHub Desktop, review, write a short message, Commit to main, then Push origin.
-4. The site updates in a minute or two.
-
-## Files
-- `index.html` — the page
-- `gallery-data.js` — which photos appear in each gallery (kept up to date by the script)
-- `support.js`, `image-slot.js` — rendering code from the design export
-- `assets/` — About photos and other site images
-- `photos/` — gallery photos
-- `tools/` — helper scripts
-
-## Undo a change
-GitHub Desktop > History > right-click the commit > Revert Changes in Commit, then Push origin.
+## Updating photos
+Replace files in /photos keeping the same names, or edit gallery-data.js.
