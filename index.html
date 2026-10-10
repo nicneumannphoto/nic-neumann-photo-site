@@ -17,7 +17,7 @@
 <script src="./gallery-data.js"></script>
 <script>window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };</script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-<style>html{scroll-behavior:smooth}body{margin:0;background:#FAF2EB;color:#372017;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#372017;text-underline-offset:5px;text-decoration-thickness:1px}a:hover{color:#716A43}input,select,textarea,button{font-family:inherit;color:inherit}::selection{background:#C1AD8C;color:#372017}</style>
+<style>html{scroll-behavior:smooth}body{margin:0;background:#FAF2EB;color:#372017;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#372017;text-underline-offset:5px;text-decoration-thickness:1px}a:hover{color:#716A43}input,select,textarea,button{font-family:inherit;color:inherit}::selection{background:#C1AD8C;color:#372017}@keyframes nnpFade{from{opacity:0}to{opacity:1}}@keyframes nnpLift{from{transform:translateY(22px) scale(.9)}to{transform:none}}@keyframes nnpShadow{from{box-shadow:0 1px 3px rgba(15,8,4,0.25)}to{box-shadow:0 36px 72px -12px rgba(15,8,4,0.7),0 14px 30px rgba(15,8,4,0.4),0 2px 6px rgba(15,8,4,0.3)}}</style>
 </helmet>
 
 <sc-if value="{{ showMain }}" hint-placeholder-val="{{ true }}">
@@ -222,7 +222,7 @@
     </div>
   </section>
 
-  <footer style="background:#372017;color:#FAF2EB;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
+  <footer style="background:#5E4A41;color:#FAF2EB;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
     <img src="assets/location-cream.png" alt="Nic Neumann Photography — Denver, Colorado" style="width:min(320px,72vw);height:auto">
     <nav style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
       <a href="#portfolio" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">Portfolio</a>
@@ -273,8 +273,8 @@
   </sc-if>
 
   <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:100;background:#372017;color:#FAF2EB;display:flex;flex-direction:column">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px">
+    <div style="position:fixed;inset:0;z-index:100;background:#5E4A41;color:#FAF2EB;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(193,173,140,0.25)">
         <button onClick="{{ closeGallery }}" style="justify-self:start;border:0;background:transparent;color:#FAF2EB;cursor:pointer;padding:10px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">← Back</button>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
           <span style="font:400 26px/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
@@ -282,29 +282,41 @@
         </div>
         <button onClick="{{ closeGallery }}" aria-label="Close" style="justify-self:end;border:1px solid #FAF2EB;background:transparent;color:#FAF2EB;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
       </div>
-      <div style="position:relative;flex:1;min-height:0;margin:0 clamp(12px,3vw,40px)">
+      <div ref="{{ sheetRef }}" style="position:relative;flex:1;min-height:0;overflow-y:auto;padding:clamp(12px,3vw,32px) clamp(12px,3vw,40px) 0">
         <sc-if value="{{ gallery.hasPhotos }}" hint-placeholder-val="{{ true }}">
-          <sc-for list="{{ gallery.photos }}" as="p" hint-placeholder-count="1">
-            <sc-if value="{{ p.near }}" hint-placeholder-val="{{ false }}">
-              <img src="{{ p.src }}" alt="{{ p.alt }}" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:{{ p.op }};transition:opacity 1.2s ease">
-            </sc-if>
-          </sc-for>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,44vw),1fr));gap:10px;max-width:1400px;margin:0 auto">
+            <sc-for list="{{ gallery.thumbs }}" as="t" hint-placeholder-count="12">
+              <button onClick="{{ t.open }}" aria-label="{{ t.alt }}" style="display:block;padding:0;border:0;aspect-ratio:4/5;overflow:hidden;cursor:zoom-in;background:rgba(250,242,235,0.07)" style-hover="background:rgba(250,242,235,0.16)">
+                <img src="{{ t.thumb }}" alt="{{ t.alt }}" loading="lazy" decoding="async" onError="{{ t.fallback }}" style="display:block;width:100%;height:100%;object-fit:contain">
+              </button>
+            </sc-for>
+          </div>
         </sc-if>
         <sc-if value="{{ gallery.noPhotos }}" hint-placeholder-val="{{ false }}">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif;color:#C1AD8C">Gallery coming soon</div>
+          <div style="display:flex;align-items:center;justify-content:center;min-height:50vh;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif;color:#C1AD8C">Gallery coming soon</div>
         </sc-if>
-        <button onClick="{{ galPrev }}" aria-label="Previous photo" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">←</button>
-        <button onClick="{{ galNext }}" aria-label="Next photo" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">→</button>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:18px 20px 22px">
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px">
-          <sc-for list="{{ gallery.tabs }}" as="t" hint-placeholder-count="5">
-            <button onClick="{{ t.go }}" style="border:0;border-bottom:1px solid {{ t.line }};background:transparent;color:{{ t.color }};cursor:pointer;padding:8px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ t.label }}</button>
-          </sc-for>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:40px 20px 32px">
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px">
+            <sc-for list="{{ gallery.tabs }}" as="t" hint-placeholder-count="5">
+              <button onClick="{{ t.go }}" style="border:0;border-bottom:1px solid {{ t.line }};background:transparent;color:{{ t.color }};cursor:pointer;padding:8px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ t.label }}</button>
+            </sc-for>
+          </div>
+          <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
         </div>
-        <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
       </div>
     </div>
+
+    <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:110;background:rgba(25,14,9,0.42);display:flex;align-items:center;justify-content:center;cursor:zoom-out;animation:nnpFade .25s ease both">
+        <div onClick="{{ lbStop }}" style="position:relative;line-height:0;cursor:default;animation:nnpLift .38s cubic-bezier(.2,.7,.2,1) both">
+          <img src="{{ lbSrc }}" alt="{{ lbAlt }}" loading="lazy" decoding="async" style="display:block;width:auto;height:auto;max-width:min(90vw,1300px);max-height:86vh;background:#FAF2EB;box-shadow:0 36px 72px -12px rgba(15,8,4,0.7),0 14px 30px rgba(15,8,4,0.4),0 2px 6px rgba(15,8,4,0.3);animation:nnpShadow .38s cubic-bezier(.2,.7,.2,1) both">
+          <button onClick="{{ lbClose }}" aria-label="Close photo" style="position:absolute;top:-16px;right:-16px;width:40px;height:40px;border:0;border-radius:50%;background:#FAF2EB;color:#372017;cursor:pointer;font:400 22px/1 Figtree,sans-serif;box-shadow:0 4px 14px rgba(15,8,4,0.45)" style-hover="background:#C1AD8C">×</button>
+        </div>
+        <button onClick="{{ lbPrev }}" aria-label="Previous photo" style="position:absolute;left:clamp(6px,1.5vw,20px);top:50%;transform:translateY(-50%);border:0;background:rgba(250,242,235,0.92);color:#372017;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 4px 14px rgba(15,8,4,0.4)" style-hover="background:#FAF2EB">←</button>
+        <button onClick="{{ lbNext }}" aria-label="Next photo" style="position:absolute;right:clamp(6px,1.5vw,20px);top:50%;transform:translateY(-50%);border:0;background:rgba(250,242,235,0.92);color:#372017;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 4px 14px rgba(15,8,4,0.4)" style-hover="background:#FAF2EB">→</button>
+        <span style="position:absolute;bottom:12px;left:0;right:0;text-align:center;pointer-events:none;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#FAF2EB;text-shadow:0 1px 6px rgba(15,8,4,0.8)">{{ lbCount }}</span>
+      </div>
+    </sc-if>
   </sc-if>
 
 </div>
@@ -331,7 +343,8 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;logoColor&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Moss Green&quot;,&quot;Dark Brown&quot;],&quot;default&quot;:&quot;Moss Green&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;shoutTitle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Notes From Friends&quot;,&quot;Client Love Notes&quot;,&quot;Shout-Outs&quot;,&quot;Client Raves&quot;],&quot;default&quot;:&quot;Notes From Friends&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;heroTiles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;3&quot;,&quot;4&quot;],&quot;default&quot;:&quot;3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:5,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;default&quot;:9,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;previewAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hidden pages&quot;}}">
 class Component extends DCLogic {
-  state = { mob: 0, frames: [0, 0, 0, 0], hover: null, gallery: null, quote: 0, sent: false, scrolled: false, hash: (typeof location !== 'undefined' ? location.hash : '') };
+  sheetRef = React.createRef();
+  state = { mob: 0, frames: [0, 0, 0, 0], hover: null, gallery: null, lb: null, quote: 0, sent: false, scrolled: false, hash: (typeof location !== 'undefined' ? location.hash : '') };
   reelRef = React.createRef();
   cats = [
     { key: 'weddings', label: 'Weddings', sub: 'Big celebrations & mountaintop elopements' },
@@ -361,7 +374,7 @@ class Component extends DCLogic {
       if (id && id !== 'availability') { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 40); }
       else if (id === 'availability') window.scrollTo(0, 0);
     });
-    this.onKey = (e) => { if (this.state.gallery && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { this.galStep(e.key === 'ArrowRight' ? 1 : -1); this.startGalTimer(); return; } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
+    this.onKey = (e) => { if (this.state.gallery && this.state.lb != null) { if (e.key === 'ArrowRight') { this.lbStep(1); return; } if (e.key === 'ArrowLeft') { this.lbStep(-1); return; } if (e.key === 'Escape') { this.setState({ lb: null }); return; } } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
     this.onResize = () => { const w = window.innerWidth >= 640; if (w !== this.state.wide) this.setState({ wide: w }); };
     this.onResize(); window.addEventListener('resize', this.onResize);
     window.addEventListener('scroll', this.onScroll, { passive: true });
@@ -391,19 +404,16 @@ class Component extends DCLogic {
     }, per / n);
   }
   galKeys() { const G = window.NNP_GALLERIES || {}; return [...this.cats, ...this.moreCats].filter(c => (G[c.key] || []).length).map(c => c.key); }
-  galStep(d) {
-    const G = window.NNP_GALLERIES || {}; const keys = this.galKeys();
+  lbStep(d) {
+    const G = window.NNP_GALLERIES || {};
     this.setState(s => {
-      if (!s.gallery) return null;
-      let k = s.gallery, i = (s.gIdx || 0) + d; const len = (G[k] || []).length;
-      if (i >= len) { k = keys[(keys.indexOf(k) + 1) % keys.length]; i = 0; }
-      else if (i < 0) { k = keys[(keys.indexOf(k) - 1 + keys.length) % keys.length]; i = (G[k] || []).length - 1; }
-      return { gallery: k, gIdx: i };
+      if (!s.gallery || s.lb == null) return null;
+      const len = (G[s.gallery] || []).length;
+      return len ? { lb: (s.lb + d + len) % len } : null;
     });
   }
-  startGalTimer() { clearInterval(this.galTimer); this.galTimer = setInterval(() => this.galStep(1), 14000); }
-  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, gIdx: 0, hover: null }); this.startGalTimer(); }
-  closeGallery = () => { clearInterval(this.galTimer); if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
+  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, lb: null, hover: null }); }
+  closeGallery = () => { if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null, lb: null }); };
   renderVals() {
     const n = this.tileCount();
     const { frames, hover, quote } = this.state;
@@ -434,14 +444,18 @@ class Component extends DCLogic {
     const allCats = allList.map((c, i) => ({ ...mk(c), offset: offs[i % 3] }));
     const g = allList.find(c => c.key === this.state.gallery);
     const gp = g ? ((window.NNP_GALLERIES || {})[g.key] || []) : [];
-    const gi = Math.min(this.state.gIdx || 0, Math.max(gp.length - 1, 0));
     const gkeys = this.galKeys();
-    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gi + 1} / ${gp.length}` : '',
-      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: `${g.label} photo ${i + 1}`, op: i === gi ? 1 : 0 }; }),
-      slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })),
-      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, gIdx: 0 }); this.startGalTimer(); } })) } : { label: '', sub: '', slots: [], photos: [], tabs: [] };
-    const galPrev = () => { this.galStep(-1); this.startGalTimer(); };
-    const galNext = () => { this.galStep(1); this.startGalTimer(); };
+    const lbIdx = this.state.lb;
+    const lbValid = !!g && lbIdx != null && lbIdx >= 0 && lbIdx < gp.length;
+    const thumbOf = (src) => src.replace(/^photos\//, 'photos/thumbs/');
+    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gp.length} photos` : '',
+      thumbs: gp.map((src, i) => ({ thumb: thumbOf(src), alt: `${g.label} photo ${i + 1}`, open: () => this.setState({ lb: i }),
+        fallback: (e) => { const el = e.target; if (!el.dataset.fb) { el.dataset.fb = '1'; el.src = src; } } })),
+      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, lb: null }); if (this.sheetRef.current) this.sheetRef.current.scrollTop = 0; } })) } : { label: '', sub: '', thumbs: [], tabs: [] };
+    const lbStop = (e) => e.stopPropagation();
+    const lbPrev = (e) => { e.stopPropagation(); this.lbStep(-1); };
+    const lbNext = (e) => { e.stopPropagation(); this.lbStep(1); };
+    const lbClose = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ lb: null }); };
     const widths = ['260px', '340px', '260px', '560px', '260px', '320px', '260px', '480px', '260px', '340px'];
     const reelSrc = (window.NNP_GALLERIES || {}).reel || [];
     const reel = widths.map((w, i) => ({ id: `reel-${i + 1}`, src: reelSrc[i] || '', w: `min(${w}, 78vw)`, video: false, ph: (i === 1 || i === 5 || i === 8) ? 'Video clip (poster frame)' : 'Recent photo' }));
@@ -453,7 +467,9 @@ class Component extends DCLogic {
       barY: this.state.scrolled ? '0%' : '-105%',
       shoutTitle, shoutNav: shoutMap[shoutTitle] ?? shoutTitle,
       hero, heroMax: n === 3 ? '1360px' : '1200px', heroCol: n === 3 ? 'max(calc(33.333% - 10px), min(100%, calc((640px - 100%) * 999)))' : 'max(calc(25% - 11px), min(calc(50% - 7px), calc((760px - 100%) * 999)))',
-      cats, allCats, galleryOpen: !!g, gallery, galPrev, galNext, closeGallery: this.closeGallery,
+      cats, allCats, galleryOpen: !!g, gallery, closeGallery: this.closeGallery, sheetRef: this.sheetRef,
+      lbOpen: lbValid, lbSrc: lbValid ? gp[lbIdx] : '', lbAlt: lbValid ? `${g.label} photo ${lbIdx + 1}` : '', lbCount: lbValid ? `${lbIdx + 1} / ${gp.length}` : '',
+      lbStop, lbPrev, lbNext, lbClose,
       portfolioOpen: !!this.state.portfolio,
       openPortfolio: () => { document.body.style.overflow = 'hidden'; this.setState({ portfolio: true, hover: null }); },
       closePortfolio: () => { document.body.style.overflow = ''; this.setState({ portfolio: false, gallery: null }); },

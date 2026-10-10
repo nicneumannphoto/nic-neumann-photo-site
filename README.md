@@ -13,3 +13,6 @@
 
 ## Updating photos
 Replace files in /photos keeping the same names, or edit gallery-data.js.
+
+Galleries show small thumbnails first (photos/thumbs/<gallery>/<same file name>). Double-click
+tools/update-galleries.command after adding photos: it updates gallery-data.js and makes any missing thumbnails.

@@ -99,6 +99,26 @@ if (@warnings) {
 print "\n";
 PERL
 
+# Make small thumbnails for the gallery contact sheets. Only photos that don't have one yet.
+# (The site falls back to the full-size photo if a thumbnail is missing, just slower.)
+if command -v sips >/dev/null 2>&1; then
+  made=0
+  for cat in weddings families seniors headshots couples; do
+    [ -d "photos/$cat" ] || continue
+    mkdir -p "photos/thumbs/$cat"
+    for f in photos/$cat/*.[jJ][pP][gG] photos/$cat/*.[jJ][pP][eE][gG]; do
+      [ -f "$f" ] || continue
+      t="photos/thumbs/$cat/$(basename "$f")"
+      if [ ! -f "$t" ]; then
+        sips -Z 640 -s format jpeg -s formatOptions 74 "$f" --out "$t" >/dev/null 2>&1 && made=$((made + 1))
+      fi
+    done
+  done
+  echo "Made $made new thumbnail(s) in photos/thumbs."
+else
+  echo "Couldn't make thumbnails (sips not found). The site will still work, just load photos slower."
+fi
+
 echo
 read -n 1 -s -r -p "Press any key to close this window..."
 echo
