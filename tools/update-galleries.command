@@ -80,6 +80,13 @@ for my $p (@pinned) {
   push @warnings, "A cover, hero, reel or CTA entry points to $p, which doesn't exist." unless -e $p;
 }
 
+# Remember which photos are used on the home page (covers + "Lately" strip) so the shell step below can make mid-size copies.
+if (open(my $pf, '>', '/tmp/nnp-pinned.txt')) {
+  my %seen;
+  print $pf "$_\n" for grep { defined $_ && m{^photos/} && !$seen{$_}++ } (values %{ $data->{covers} || {} }, @{ $data->{reel} || [] });
+  close $pf;
+}
+
 print "\n";
 if ($added || $removed) {
   open(my $out, '>:encoding(UTF-8)', $file) or die "Can't write $file\n";
@@ -99,8 +106,8 @@ if (@warnings) {
 print "\n";
 PERL
 
-# Make small thumbnails for the gallery contact sheets. Only photos that don't have one yet.
-# (The site falls back to the full-size photo if a thumbnail is missing, just slower.)
+# Make small thumbnails for the gallery contact sheets (and mid-size copies for the home page). Only ones that don't exist yet.
+# (The site falls back to the full-size photo if one is missing, just slower.)
 if command -v sips >/dev/null 2>&1; then
   made=0
   for cat in weddings families seniors headshots couples; do
@@ -110,11 +117,23 @@ if command -v sips >/dev/null 2>&1; then
       [ -f "$f" ] || continue
       t="photos/thumbs/$cat/$(basename "$f")"
       if [ ! -f "$t" ]; then
-        sips -Z 640 -s format jpeg -s formatOptions 74 "$f" --out "$t" >/dev/null 2>&1 && made=$((made + 1))
+        sips -Z 480 -s format jpeg -s formatOptions 72 "$f" --out "$t" >/dev/null 2>&1 && made=$((made + 1))
       fi
     done
   done
   echo "Made $made new thumbnail(s) in photos/thumbs."
+  madem=0
+  if [ -f /tmp/nnp-pinned.txt ]; then
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      m="${f/photos\//photos/med/}"
+      if [ ! -f "$m" ]; then
+        mkdir -p "$(dirname "$m")"
+        sips -Z 1400 -s format jpeg -s formatOptions 80 "$f" --out "$m" >/dev/null 2>&1 && madem=$((madem + 1))
+      fi
+    done < /tmp/nnp-pinned.txt
+  fi
+  echo "Made $madem new mid-size copy/copies in photos/med."
 else
   echo "Couldn't make thumbnails (sips not found). The site will still work, just load photos slower."
 fi
