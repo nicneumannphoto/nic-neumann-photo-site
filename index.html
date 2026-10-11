@@ -277,14 +277,14 @@
       <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(193,173,140,0.25)">
         <button onClick="{{ closeGallery }}" style="justify-self:start;border:0;background:transparent;color:#FAF2EB;cursor:pointer;padding:10px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">← Back</button>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
-          <span style="font:400 26px/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
-          <span style="font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#C1AD8C">{{ gallery.count }}</span>
+          <span style="font:400 clamp(34px,4.2vw,56px)/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
+          <span style="font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#C1AD8C;font-size:13px">{{ gallery.count }}</span>
         </div>
         <button onClick="{{ closeGallery }}" aria-label="Close" style="justify-self:end;border:1px solid #FAF2EB;background:transparent;color:#FAF2EB;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
       </div>
-      <div ref="{{ sheetRef }}" style="position:relative;flex:1;min-height:0;overflow-y:auto;padding:clamp(8px,1.4vw,18px) clamp(6px,1vw,14px) 0">
+      <div ref="{{ sheetRef }}" style="position:relative;flex:1;min-height:0;overflow-y:auto;padding:clamp(10px,1.6vw,20px) clamp(18px,7vw,150px) 0">
         <sc-if value="{{ gallery.hasPhotos }}" hint-placeholder-val="{{ true }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,44vw),1fr));gap:clamp(5px,.6vw,8px)">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,40vw),1fr));gap:clamp(5px,.6vw,8px)">
             <sc-for list="{{ gallery.thumbs }}" as="t" hint-placeholder-count="12">
               <button onClick="{{ t.open }}" aria-label="{{ t.alt }}" style="display:block;padding:0;border:0;aspect-ratio:4/5;overflow:hidden;cursor:zoom-in;background:rgba(250,242,235,0.07);opacity:0.7;transition:opacity .35s ease" style-hover="opacity:1">
                 <img src="{{ t.thumb }}" alt="{{ t.alt }}" loading="lazy" decoding="async" onError="{{ t.fallback }}" style="display:block;width:100%;height:100%;object-fit:contain">
@@ -302,6 +302,9 @@
             </sc-for>
           </div>
           <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
+        </div>
+        <div style="display:flex;justify-content:center;padding:8px 0 56px">
+          <img src="assets/sublogo-mark-cream.png" alt="Nic Neumann Photography" style="width:clamp(130px,14vw,190px);height:auto;display:block;opacity:.9">
         </div>
       </div>
     </div>
@@ -354,7 +357,6 @@ class Component extends DCLogic {
   moreCats = [
     { key: 'headshots', label: 'Headshots', sub: 'Approachable, professional, you' },
     { key: 'seniors', label: 'Seniors', sub: 'Celebrating the class of right now' },
-    { key: 'events', label: 'Events', sub: 'Parties, milestones & gatherings' },
   ];
   quotes = [
     {"text": "Nic captured my elopement this summer and it was the best decision. Our photos turned out so beautiful, Nic made it so easy the day of, and went above and beyond. This is the type of human you want to hire, for who he is, and for how seriously he takes capturing your most precious memories.", "who": "Morgan Otey", "what": "Google review"},
