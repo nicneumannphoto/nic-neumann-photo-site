@@ -16,8 +16,9 @@
 <script src="./image-slot.js"></script>
 <script src="./gallery-data.js"></script>
 <script>window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };</script>
+<script src="./form-timestamp.js"></script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-<style>html{scroll-behavior:smooth}body{margin:0;background:#FAF2EB;color:#372017;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#372017;text-underline-offset:5px;text-decoration-thickness:1px}a:hover{color:#716A43}input,select,textarea,button{font-family:inherit;color:inherit}::selection{background:#C1AD8C;color:#372017}@keyframes nnpFade{from{opacity:0}to{opacity:1}}@keyframes nnpLift{from{transform:translateY(22px) scale(.9)}to{transform:none}}@keyframes nnpShadow{from{box-shadow:0 1px 3px rgba(15,8,4,0.25)}to{box-shadow:0 36px 72px -12px rgba(15,8,4,0.7),0 14px 30px rgba(15,8,4,0.4),0 2px 6px rgba(15,8,4,0.3)}}</style>
+<style>html{scroll-behavior:smooth}body{margin:0;background:#FAF2EB;color:#372017;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#372017;text-underline-offset:5px;text-decoration-thickness:1px}a:hover{color:#716A43}input,select,textarea,button{font-family:inherit;color:inherit}::selection{background:#C1AD8C;color:#372017}</style>
 </helmet>
 
 <sc-if value="{{ showMain }}" hint-placeholder-val="{{ true }}">
@@ -75,7 +76,7 @@
           <div style="display:flex;flex-direction:column;gap:16px;padding-top:{{ c.offset }}">
             <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#F1E6DA">
               <div style="position:absolute;inset:0;transform:scale({{ c.scale }});transition:transform 1.4s cubic-bezier(.2,.7,.2,1)">
-                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" onError="{{ c.fallback }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
               </div>
               <div style="position:absolute;inset:0;pointer-events:none;background:rgba(55,32,23,0.48);opacity:{{ c.scrim }};transition:opacity .6s ease"></div>
               <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 10px rgba(55,32,23,0.62)"></div>
@@ -129,8 +130,8 @@
     </div>
     <div style="width:64px;height:1px;background:#C1AD8C"></div>
     <blockquote style="margin:0;max-width:820px;min-height:9em;display:flex;flex-direction:column;justify-content:center;gap:26px">
-      <p style="margin:0;font-family:'Crimson Pro',Georgia,serif;font-style:italic;font-weight:300;font-size:{{ quote.size }};line-height:1.45;text-wrap:pretty">“{{ quote.text }}”</p>
-      <footer style="font:500 12px/1.4 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase"><span style="display:block;margin-bottom:10px;color:#716A43;letter-spacing:.3em">★★★★★</span>{{ quote.who }} <span style="color:#716A43">· {{ quote.what }}</span></footer>
+      <p style="margin:0;font:italic 300 clamp(22px,2.8vw,30px)/1.45 'Crimson Pro',Georgia,serif;text-wrap:pretty">“{{ quote.text }}”</p>
+      <footer style="font:500 12px/1.4 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ quote.who }} <span style="color:#716A43">· {{ quote.what }}</span></footer>
     </blockquote>
     <div style="display:flex;align-items:center;gap:24px;font:500 12px/1 Figtree,sans-serif;letter-spacing:.2em">
       <button onClick="{{ prevQuote }}" aria-label="Previous" style="border:1px solid #372017;background:transparent;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:16px" style-hover="background:#372017;color:#FAF2EB">←</button>
@@ -150,7 +151,7 @@
     <div ref="{{ reelRef }}" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 24px 0 calc(clamp(84px,9vw,112px) + 96px);scroll-padding:0 24px 0 calc(clamp(84px,9vw,112px) + 96px)">
       <sc-for list="{{ reel }}" as="r" hint-placeholder-count="8">
         <div style="position:relative;flex:none;width:{{ r.w }};height:clamp(300px,42vw,440px);scroll-snap-align:start;background:#F1E6DA;opacity:0.7;transition:opacity .5s ease" style-hover="opacity:1">
-          <img src="{{ r.src }}" alt="Recent work" loading="lazy" decoding="async" onError="{{ r.fallback }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <img src="{{ r.src }}" alt="Recent work" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
           <sc-if value="{{ r.video }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;top:14px;right:14px;pointer-events:none;display:flex;align-items:center;gap:8px;padding:7px 12px 7px 10px;background:rgba(250,242,235,0.92);font:500 10px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
               <span style="width:0;height:0;border-left:7px solid #372017;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent"></span>Film
@@ -222,7 +223,7 @@
     </div>
   </section>
 
-  <footer style="background:#5E4A41;color:#FAF2EB;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
+  <footer style="background:#372017;color:#FAF2EB;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
     <img src="assets/location-cream.png" alt="Nic Neumann Photography — Denver, Colorado" style="width:min(320px,72vw);height:auto">
     <nav style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
       <a href="#portfolio" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">Portfolio</a>
@@ -232,8 +233,8 @@
     </nav>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px 30px;font:400 15px/1.4 Figtree,sans-serif">
       <a href="mailto:hello@nicneumannphoto.com" style="color:#FAF2EB;text-decoration:underline">hello@nicneumannphoto.com</a>
-      <a href="https://www.instagram.com/nic_neumann_photo" style="color:#FAF2EB;text-decoration:underline">Instagram</a>
-      <a href="https://www.facebook.com/nicneumannphoto" style="color:#FAF2EB;text-decoration:underline">Facebook</a>
+      <a href="https://www.instagram.com/nickneumannphoto/" style="color:#FAF2EB;text-decoration:underline">Instagram</a>
+      <a href="https://www.facebook.com/nickneumannphoto" style="color:#FAF2EB;text-decoration:underline">Facebook</a>
     </div>
     <div style="width:100%;max-width:1200px;height:1px;background:rgba(193,173,140,0.4)"></div>
     <span style="font:400 12px/1 Figtree,sans-serif;letter-spacing:.08em;color:#E9DCCB">© 2026 Nic Neumann Photography · Denver, Colorado</span>
@@ -247,12 +248,12 @@
         <button onClick="{{ closePortfolio }}" aria-label="Close" style="justify-self:end;border:1px solid #372017;background:transparent;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
       </div>
       <div style="max-width:1100px;margin:0 auto;padding:48px 24px 96px">
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:36px 20px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:36px 20px">
         <sc-for list="{{ allCats }}" as="c" hint-placeholder-count="6">
-          <div style="flex:0 1 max(280px,calc((100% - 40px) / 3));max-width:100%;display:flex;flex-direction:column;gap:16px;padding-top:{{ c.offset }}">
+          <div style="display:flex;flex-direction:column;gap:16px;padding-top:{{ c.offset }}">
             <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#F1E6DA">
               <div style="position:absolute;inset:0;transform:scale({{ c.scale }});transition:transform 1.4s cubic-bezier(.2,.7,.2,1)">
-                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" onError="{{ c.fallback }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+                <img src="{{ c.src }}" alt="{{ c.label }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
               </div>
               <div style="position:absolute;inset:0;pointer-events:none;background:rgba(55,32,23,0.48);opacity:{{ c.scrim }};transition:opacity .6s ease"></div>
               <div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 10px rgba(55,32,23,0.62)"></div>
@@ -273,52 +274,38 @@
   </sc-if>
 
   <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:100;background:#5E4A41;color:#FAF2EB;display:flex;flex-direction:column">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(193,173,140,0.25)">
+    <div style="position:fixed;inset:0;z-index:100;background:#372017;color:#FAF2EB;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:14px 20px">
         <button onClick="{{ closeGallery }}" style="justify-self:start;border:0;background:transparent;color:#FAF2EB;cursor:pointer;padding:10px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">← Back</button>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
-          <span style="font:400 clamp(34px,4.2vw,56px)/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
+          <span style="font:400 26px/1 'Crimson Pro',Georgia,serif;letter-spacing:.12em;text-transform:uppercase">{{ gallery.label }}</span>
+          <span style="font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#C1AD8C">{{ gallery.count }}</span>
         </div>
         <button onClick="{{ closeGallery }}" aria-label="Close" style="justify-self:end;border:1px solid #FAF2EB;background:transparent;color:#FAF2EB;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px">×</button>
       </div>
-      <div ref="{{ sheetRef }}" style="position:relative;flex:1;min-height:0;overflow-y:auto;padding:clamp(10px,1.6vw,20px) clamp(18px,7vw,150px) 0">
+      <div style="position:relative;flex:1;min-height:0;margin:0 clamp(12px,3vw,40px)">
         <sc-if value="{{ gallery.hasPhotos }}" hint-placeholder-val="{{ true }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,40vw),1fr));gap:clamp(5px,.6vw,8px)">
-            <sc-for list="{{ gallery.thumbs }}" as="t" hint-placeholder-count="12">
-              <button onClick="{{ t.open }}" aria-label="{{ t.alt }}" style="display:block;padding:0;border:0;aspect-ratio:4/5;overflow:hidden;cursor:zoom-in;background:rgba(250,242,235,0.07);opacity:0.7;transition:opacity .35s ease" style-hover="opacity:1">
-                <img src="{{ t.thumb }}" alt="{{ t.alt }}" loading="lazy" decoding="async" onError="{{ t.fallback }}" style="display:block;width:100%;height:100%;object-fit:contain">
-              </button>
-            </sc-for>
-          </div>
+          <sc-for list="{{ gallery.photos }}" as="p" hint-placeholder-count="1">
+            <sc-if value="{{ p.near }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ p.src }}" alt="{{ p.alt }}" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:{{ p.op }};transition:opacity 1.2s ease">
+            </sc-if>
+          </sc-for>
         </sc-if>
         <sc-if value="{{ gallery.noPhotos }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;align-items:center;justify-content:center;min-height:50vh;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif;color:#C1AD8C">Gallery coming soon</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:italic 300 24px/1.4 'Crimson Pro',Georgia,serif;color:#C1AD8C">Gallery coming soon</div>
         </sc-if>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:40px 20px 32px">
-          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px">
-            <sc-for list="{{ gallery.tabs }}" as="t" hint-placeholder-count="5">
-              <button onClick="{{ t.go }}" style="border:0;border-bottom:1px solid {{ t.line }};background:transparent;color:{{ t.color }};cursor:pointer;padding:8px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ t.label }}</button>
-            </sc-for>
-          </div>
-          <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
+        <button onClick="{{ galPrev }}" aria-label="Previous photo" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">←</button>
+        <button onClick="{{ galNext }}" aria-label="Next photo" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:2;border:0;background:rgba(250,242,235,0.92);color:#372017;width:52px;height:52px;border-radius:50%;cursor:pointer;font-size:18px" style-hover="background:#FAF2EB">→</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:18px 20px 22px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px">
+          <sc-for list="{{ gallery.tabs }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.go }}" style="border:0;border-bottom:1px solid {{ t.line }};background:transparent;color:{{ t.color }};cursor:pointer;padding:8px 0;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">{{ t.label }}</button>
+          </sc-for>
         </div>
-        <div style="display:flex;justify-content:center;padding:8px 0 56px">
-          <img src="assets/sublogo-mark-cream.png" alt="Nic Neumann Photography" style="width:clamp(130px,14vw,190px);height:auto;display:block;opacity:.9">
-        </div>
+        <button onClick="{{ galleryInquire }}" style="border:0;background:#716A43;color:#FAF2EB;padding:14px 26px;cursor:pointer;font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#C1AD8C;color:#372017">Let’s start planning</button>
       </div>
     </div>
-
-    <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
-      <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:110;background:rgba(25,14,9,0.42);display:flex;align-items:center;justify-content:center;cursor:zoom-out;animation:nnpFade .25s ease both">
-        <div onClick="{{ lbStop }}" style="position:relative;line-height:0;cursor:default;animation:nnpLift .38s cubic-bezier(.2,.7,.2,1) both">
-          <img src="{{ lbSrc }}" alt="{{ lbAlt }}" loading="lazy" decoding="async" style="display:block;width:auto;height:auto;max-width:min(90vw,1300px);max-height:86vh;background:#FAF2EB;box-shadow:0 36px 72px -12px rgba(15,8,4,0.7),0 14px 30px rgba(15,8,4,0.4),0 2px 6px rgba(15,8,4,0.3);animation:nnpShadow .38s cubic-bezier(.2,.7,.2,1) both">
-          <button onClick="{{ lbClose }}" aria-label="Close photo" style="position:absolute;top:-16px;right:-16px;width:40px;height:40px;border:0;border-radius:50%;background:#FAF2EB;color:#372017;cursor:pointer;font:400 22px/1 Figtree,sans-serif;box-shadow:0 4px 14px rgba(15,8,4,0.45)" style-hover="background:#C1AD8C">×</button>
-        </div>
-        <button onClick="{{ lbPrev }}" aria-label="Previous photo" style="position:absolute;left:clamp(6px,1.5vw,20px);top:50%;transform:translateY(-50%);border:0;background:rgba(250,242,235,0.92);color:#372017;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 4px 14px rgba(15,8,4,0.4)" style-hover="background:#FAF2EB">←</button>
-        <button onClick="{{ lbNext }}" aria-label="Next photo" style="position:absolute;right:clamp(6px,1.5vw,20px);top:50%;transform:translateY(-50%);border:0;background:rgba(250,242,235,0.92);color:#372017;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 4px 14px rgba(15,8,4,0.4)" style-hover="background:#FAF2EB">→</button>
-        <span style="position:absolute;bottom:12px;left:0;right:0;text-align:center;pointer-events:none;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;color:#FAF2EB;text-shadow:0 1px 6px rgba(15,8,4,0.8)">{{ lbCount }}</span>
-      </div>
-    </sc-if>
   </sc-if>
 
 </div>
@@ -345,8 +332,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;logoColor&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Moss Green&quot;,&quot;Dark Brown&quot;],&quot;default&quot;:&quot;Moss Green&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;shoutTitle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Notes From Friends&quot;,&quot;Client Love Notes&quot;,&quot;Shout-Outs&quot;,&quot;Client Raves&quot;],&quot;default&quot;:&quot;Notes From Friends&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;heroTiles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;3&quot;,&quot;4&quot;],&quot;default&quot;:&quot;3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:5,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;default&quot;:9,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;previewAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hidden pages&quot;}}">
 class Component extends DCLogic {
-  sheetRef = React.createRef();
-  state = { mob: 0, frames: [0, 0, 0, 0], heroAll: false, hover: null, gallery: null, lb: null, quote: 0, sent: false, scrolled: false, hash: (typeof location !== 'undefined' ? location.hash : '') };
+  state = { mob: 0, frames: [0, 0, 0, 0], hover: null, gallery: null, quote: 0, sent: false, scrolled: false, hash: (typeof location !== 'undefined' ? location.hash : '') };
   reelRef = React.createRef();
   cats = [
     { key: 'weddings', label: 'Weddings', sub: 'Big celebrations & mountaintop elopements' },
@@ -356,27 +342,12 @@ class Component extends DCLogic {
   moreCats = [
     { key: 'headshots', label: 'Headshots', sub: 'Approachable, professional, you' },
     { key: 'seniors', label: 'Seniors', sub: 'Celebrating the class of right now' },
+    { key: 'events', label: 'Events', sub: 'Parties, milestones & gatherings' },
   ];
   quotes = [
-    {"text": "Nic captured my elopement this summer and it was the best decision. Our photos turned out so beautiful, Nic made it so easy the day of, and went above and beyond. This is the type of human you want to hire, for who he is, and for how seriously he takes capturing your most precious memories.", "who": "Morgan Otey", "what": "Google review"},
-    {"text": "Nic did a Christmas event at Englewood High school years ago! He was awesome!", "who": "Tulle by Design", "what": "Google review"},
-    {"text": "Of all the vendors we had Nic Neumann Photography was by far the most outstanding we had. We appreciate all of the little details that he does just to make the day go as smoothly as possible and adding in key moments to slow down and enjoy the day. Beautiful photos and amazing professionalism.", "who": "Jamie Davis", "what": "Google review"},
-    {"text": "Nic was great, loved the photos he took for our proposal! Super easy to work with! I’d recommend him for anyone!", "who": "James Robertson", "what": "Google review"},
-    {"text": "Used Nic for family photos, very professional and timely.  Will use again", "who": "David Alexander", "what": "Google review"},
-    {"text": "Nic is hands down THE BEST photographer I’ve used! He has done baby pictures, pregnancy announcement, family, and birthday party pictures for us, and we can’t stop going to him for more! He listens to my requests and ideas for what I want and also has such an amazing eye for other shots too! His pictures and then edits always wildly exceed my expectations and capture each moment perfectly. My own regret is not finding him earlier!", "who": "Brittany Kaminky", "what": "Google review"},
-    {"text": "Nic has taken countless photos for me and my family. From family pictures, to newborn, to even product photography! His skills are unmatched. You will not regret using him for your special occasion whatever it may be!", "who": "Kyle Kaminky", "what": "Google review"},
-    {"text": "Nic has perfected his craft. He knows the angles to shoot, listens to clients, and loves what he does. You can see that he has a true passion for photography. Would 100% recommend him for any photoshoot or wedding.", "who": "Jared McQueer", "what": "Google review"},
-    {"text": "Nic did a great job on our family photos! We’ve used him twice as a family and will continue to do so. Super kind. Patient with kids. Great photographer.", "who": "Rory Green", "what": "Google review"},
-    {"text": "Nic did an amazing job with our son’s senior pictures! The pictures are stunning and our senior looks great! Nic was so easy to work with, incredibly responsive and very talented! We have also have a sophomore and I am looking forward to getting their senior pictures done with Nic too. I highly recommend Nic!!", "who": "Stephanie Adams", "what": "Google review"},
-    {"text": "Nic did an absolutely amazing job on our wedding photos. His excitement was unmatched! He took so many amazing photos I am literally favoriting all of them!! Stunning captures of our day, down to the smallest of details. I am in love with these photos to provide us with incredible memories to last a lifetime!", "who": "Melissa Schuetze", "what": "Google review"},
-    {"text": "From the start it was incredibly encouraging to sit down and meet Nic to discuss what we were hoping to get out of a wedding photographer. We didn’t think we wanted an emphasis on photos for our wedding, but we decided to have Nic and his second shooting photographer for the full package amount of time. Now that we have our photos, we have no doubt that more is better when having a professional and talented photographer. He was very personable and attentive, and spent quality time getting to know us and the memories we wanted to capture. He was so respectful during the whole process, most notably during the ceremony. One thing of importance to us was to have a photographer who could keep a low profile during the ceremony, and our venue had a no flash policy. Nic was able to work around these limitations with ease, and still managed to get amazing angles and meaningful shots. He managed to make rather ordinary locations feel magical. We really appreciated the beautiful artistry and care in taking, editing, and organizing our photos. Nic has certainly honed his craft and we would recommend him to anyone in need of a thoughtful, talented photographer.", "who": "Austin Germiller", "what": "Google review"},
-    {"text": "For this photo shy lady needing business shots, Nic did an awesome job welcoming me in front of the lens. He worked with the tiny humans easily and helped capture the fun and playful side of working in pediatrics! I could not have ask for a better fit!", "who": "Randa Avance, MS CCC-SLP, IBCLC", "what": "Google review"},
-    {"text": "Nic was a great choice for our Fall family pictures.  He was very responsive to our requests, had great suggestions for poses that captured our crazy family and his turn around time for our pictures was very quick!  Nic will be our first choice for family pictures going forward and is highly recommended.", "who": "Ashley Walp", "what": "Google review"},
-    {"text": "Nic is a very professional attentive photographer. He takes his time to ensure the best quality pictures, my family and I will always have the best photos to look back on and remember the fun time we had taking the pictures as well. Nic catches the most precious moments in life and made our family pictures so much fun! I would highly recommend him to capture your important moments in your life as well.", "who": "Courtney Weeks", "what": "Google review"},
-    {"text": "Nic was so understanding of our unique family dynamic. He was easy-going with our many kids, and knew exactly how to get them to smile and react for fabulous candid photos. He perfectly captured the silly, loving essence of our family! Our photos turned out incredible and are now on canvases, hanging in our living room. We get compliments from every house guest. Definitely the best family photos we have ever gotten!", "who": "Jacquelyn Southwell", "what": "Google review"},
-    {"text": "A TRUE PROFESSIONAL! Nic's experience in the field and behind the camera made him indispensable to our wedding day. Not only is he kind, fun, and calming, he knows exactly what is needed for the perfect shot and the most effective way to get it. Having Nic as our photographer was one of the best decisions we made!", "who": "Micah Branch", "what": "Google review"},
-    {"text": "Nic graciously came to take pictures at a fundraiser I host. He took such amazing pictures and really captured the fun of the event. I sent the photos to all the runners at our race event and they raved about them. I highly recommend Nic.", "who": "allison galloway", "what": "Google review"},
-    {"text": "Nic is a true professional and delivers tremendous value; I felt comfortable and relieved as soon as we got to work because he immediately demonstrated his talent and work-ethic. It was worth every dollar.", "who": "Chase Watts", "what": "Google review"},
+    { text: 'Nic made us feel like we were hanging out with an old friend. We forgot there was a camera — and somehow every single photo looks exactly like us.', who: 'Emma & Jake', what: 'Wedding' },
+    { text: 'Wrangling three kids and a dog is no small feat. Nic kept everyone laughing, and we finally have family photos we actually want on our walls.', who: 'The Martinez Family', what: 'Family session' },
+    { text: 'From our first email to the gallery reveal, everything felt easy and intentional. We cried looking through them. Twice.', who: 'Priya & Sam', what: 'Elopement' },
   ];
   initInquiry() {
     const el = document.getElementById('inquiry-form');
@@ -391,29 +362,20 @@ class Component extends DCLogic {
       if (id && id !== 'availability') { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 40); }
       else if (id === 'availability') window.scrollTo(0, 0);
     });
-    this.onKey = (e) => { if (this.state.gallery && this.state.lb != null) { if (e.key === 'ArrowRight') { this.lbStep(1); return; } if (e.key === 'ArrowLeft') { this.lbStep(-1); return; } if (e.key === 'Escape') { this.setState({ lb: null }); return; } } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
+    this.onKey = (e) => { if (this.state.gallery && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { this.galStep(e.key === 'ArrowRight' ? 1 : -1); this.startGalTimer(); return; } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
     this.onResize = () => { const w = window.innerWidth >= 640; if (w !== this.state.wide) this.setState({ wide: w }); };
     this.onResize(); window.addEventListener('resize', this.onResize);
     window.addEventListener('scroll', this.onScroll, { passive: true });
     window.addEventListener('hashchange', this.onHash);
     window.addEventListener('keydown', this.onKey);
     this.startTimer();
-    // Hero: show the first photo of each column straight away, then quietly load the rest once the page has settled.
-    const heroGo = () => { this.heroTimer = setTimeout(() => this.setState({ heroAll: true }), 1200); };
-    if (document.readyState === 'complete') heroGo(); else window.addEventListener('load', heroGo, { once: true });
     if (!window.NNP_GALLERIES) this.dataTimer = setInterval(() => { if (window.NNP_GALLERIES) { clearInterval(this.dataTimer); this.forceUpdate(); } }, 100);
   }
-  componentDidUpdate(prev, prevState) {
+  componentDidUpdate(prev) {
     if (prev.heroSpeed !== this.props.heroSpeed || prev.heroTiles !== this.props.heroTiles) this.startTimer();
-    // Enlarged photo: quietly fetch the next and previous ones so flipping through feels instant.
-    const st = this.state;
-    if (prevState && st.gallery && st.lb != null && (prevState.lb !== st.lb || prevState.gallery !== st.gallery)) {
-      const list = (window.NNP_GALLERIES || {})[st.gallery] || [];
-      [1, -1].forEach(d => { const u = list[(st.lb + d + list.length) % list.length]; if (u) { const im = new Image(); im.decoding = 'async'; im.src = u; } });
-    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer); clearInterval(this.dataTimer); clearTimeout(this.heroTimer);
+    clearInterval(this.timer); clearInterval(this.dataTimer);
     window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize);
     window.removeEventListener('hashchange', this.onHash);
     window.removeEventListener('keydown', this.onKey); clearInterval(this.galTimer);
@@ -430,20 +392,21 @@ class Component extends DCLogic {
     }, per / n);
   }
   galKeys() { const G = window.NNP_GALLERIES || {}; return [...this.cats, ...this.moreCats].filter(c => (G[c.key] || []).length).map(c => c.key); }
-  lbStep(d) {
-    const G = window.NNP_GALLERIES || {};
+  galStep(d) {
+    const G = window.NNP_GALLERIES || {}; const keys = this.galKeys();
     this.setState(s => {
-      if (!s.gallery || s.lb == null) return null;
-      const len = (G[s.gallery] || []).length;
-      return len ? { lb: (s.lb + d + len) % len } : null;
+      if (!s.gallery) return null;
+      let k = s.gallery, i = (s.gIdx || 0) + d; const len = (G[k] || []).length;
+      if (i >= len) { k = keys[(keys.indexOf(k) + 1) % keys.length]; i = 0; }
+      else if (i < 0) { k = keys[(keys.indexOf(k) - 1 + keys.length) % keys.length]; i = (G[k] || []).length - 1; }
+      return { gallery: k, gIdx: i };
     });
   }
-  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, lb: null, hover: null }); }
-  closeGallery = () => { if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null, lb: null }); };
+  startGalTimer() { clearInterval(this.galTimer); this.galTimer = setInterval(() => this.galStep(1), 14000); }
+  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, gIdx: 0, hover: null }); this.startGalTimer(); }
+  closeGallery = () => { clearInterval(this.galTimer); if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
   renderVals() {
     const n = this.tileCount();
-    const medOf = (src) => src ? src.replace(/^photos\//, 'photos/med/') : src;
-    const toFull = (full) => (e) => { const el = e.target; if (full && !el.dataset.fb) { el.dataset.fb = '1'; el.src = full; } };
     const { frames, hover, quote } = this.state;
     const shoutMap = {
       'Notes From Friends': 'Notes',
@@ -453,7 +416,7 @@ class Component extends DCLogic {
     };
     const shoutTitle = this.props.shoutTitle ?? 'Notes From Friends';
     const hero = Array.from({ length: n }, (_, c) => ({
-      frames: [0, 1, 2, 3].map(f => ({ id: `hero-${c + 1}-${f + 1}`, src: (f === 0 || this.state.heroAll) ? ((((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '') : '', ph: `Hero photo ${c + 1} · ${f + 1} of 4`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
+      frames: [0, 1, 2, 3].map(f => ({ id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of 4`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
       dots: [0, 1, 2].map(f => ({ bg: frames[c] === f ? '#FAF2EB' : 'transparent', onClick: () => this.setState(s => { const fr = s.frames.slice(); fr[c] = f; return { frames: fr }; }) })),
     }));
     if (this.state.wide === false) {
@@ -463,8 +426,7 @@ class Component extends DCLogic {
     }
     const mk = (c) => {
       const h = hover === c.key;
-      const full = ((window.NNP_GALLERIES || {}).covers || {})[c.key] || '';
-      return { ...c, src: medOf(full), fallback: toFull(full), slot: `cat-${c.key}`, ph: `${c.label} cover photo`, scale: h ? 1.05 : 1, scrim: h ? 1 : 0, pe: h ? 'auto' : 'none', y: h ? '0px' : '14px', line: h ? '56px' : '0px',
+      return { ...c, src: ((window.NNP_GALLERIES || {}).covers || {})[c.key] || '', slot: `cat-${c.key}`, ph: `${c.label} cover photo`, scale: h ? 1.05 : 1, scrim: h ? 1 : 0, pe: h ? 'auto' : 'none', y: h ? '0px' : '14px', line: h ? '56px' : '0px',
         enter: () => this.setState({ hover: c.key }), leave: () => this.setState({ hover: null }), open: () => this.openGallery(c.key) };
     };
     const offs = ['0px', '64px', '28px'];
@@ -473,21 +435,17 @@ class Component extends DCLogic {
     const allCats = allList.map((c, i) => ({ ...mk(c), offset: offs[i % 3] }));
     const g = allList.find(c => c.key === this.state.gallery);
     const gp = g ? ((window.NNP_GALLERIES || {})[g.key] || []) : [];
+    const gi = Math.min(this.state.gIdx || 0, Math.max(gp.length - 1, 0));
     const gkeys = this.galKeys();
-    const lbIdx = this.state.lb;
-    const lbValid = !!g && lbIdx != null && lbIdx >= 0 && lbIdx < gp.length;
-    const thumbOf = (src) => src.replace(/^photos\//, 'photos/thumbs/');
-    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gp.length} photos` : '',
-      thumbs: gp.map((src, i) => ({ thumb: thumbOf(src), alt: `${g.label} photo ${i + 1}`, open: () => this.setState({ lb: i }),
-        fallback: (e) => { const el = e.target; if (!el.dataset.fb) { el.dataset.fb = '1'; el.src = src; } } })),
-      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, lb: null }); if (this.sheetRef.current) this.sheetRef.current.scrollTop = 0; } })) } : { label: '', sub: '', thumbs: [], tabs: [] };
-    const lbStop = (e) => e.stopPropagation();
-    const lbPrev = (e) => { e.stopPropagation(); this.lbStep(-1); };
-    const lbNext = (e) => { e.stopPropagation(); this.lbStep(1); };
-    const lbClose = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ lb: null }); };
+    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gi + 1} / ${gp.length}` : '',
+      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: `${g.label} photo ${i + 1}`, op: i === gi ? 1 : 0 }; }),
+      slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })),
+      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, gIdx: 0 }); this.startGalTimer(); } })) } : { label: '', sub: '', slots: [], photos: [], tabs: [] };
+    const galPrev = () => { this.galStep(-1); this.startGalTimer(); };
+    const galNext = () => { this.galStep(1); this.startGalTimer(); };
     const widths = ['260px', '340px', '260px', '560px', '260px', '320px', '260px', '480px', '260px', '340px'];
     const reelSrc = (window.NNP_GALLERIES || {}).reel || [];
-    const reel = widths.map((w, i) => ({ id: `reel-${i + 1}`, src: medOf(reelSrc[i] || ''), fallback: toFull(reelSrc[i] || ''), w: `min(${w}, 78vw)`, video: false, ph: (i === 1 || i === 5 || i === 8) ? 'Video clip (poster frame)' : 'Recent photo' }));
+    const reel = widths.map((w, i) => ({ id: `reel-${i + 1}`, src: reelSrc[i] || '', w: `min(${w}, 78vw)`, video: false, ph: (i === 1 || i === 5 || i === 8) ? 'Video clip (poster frame)' : 'Recent photo' }));
     const scrollReel = (d) => { const el = this.reelRef.current; if (el) el.scrollBy({ left: d * Math.min(520, el.clientWidth * 0.8), behavior: 'smooth' }); };
     const avail = !!this.props.previewAvailability || this.state.hash === '#availability';
     return {
@@ -496,14 +454,12 @@ class Component extends DCLogic {
       barY: this.state.scrolled ? '0%' : '-105%',
       shoutTitle, shoutNav: shoutMap[shoutTitle] ?? shoutTitle,
       hero, heroMax: n === 3 ? '1360px' : '1200px', heroCol: n === 3 ? 'max(calc(33.333% - 10px), min(100%, calc((640px - 100%) * 999)))' : 'max(calc(25% - 11px), min(calc(50% - 7px), calc((760px - 100%) * 999)))',
-      cats, allCats, galleryOpen: !!g, gallery, closeGallery: this.closeGallery, sheetRef: this.sheetRef,
-      lbOpen: lbValid, lbSrc: lbValid ? gp[lbIdx] : '', lbAlt: lbValid ? `${g.label} photo ${lbIdx + 1}` : '', lbCount: lbValid ? `${lbIdx + 1} / ${gp.length}` : '',
-      lbStop, lbPrev, lbNext, lbClose,
+      cats, allCats, galleryOpen: !!g, gallery, galPrev, galNext, closeGallery: this.closeGallery,
       portfolioOpen: !!this.state.portfolio,
       openPortfolio: () => { document.body.style.overflow = 'hidden'; this.setState({ portfolio: true, hover: null }); },
       closePortfolio: () => { document.body.style.overflow = ''; this.setState({ portfolio: false, gallery: null }); },
       galleryInquire: () => { this.setState({ portfolio: false }); this.closeGallery(); setTimeout(() => { const el = document.getElementById('inquire'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' }); }, 30); },
-      quote: (() => { const q = this.quotes[quote]; const n = q.text.length; return { ...q, size: n > 600 ? 'clamp(16px,1.7vw,19px)' : n > 320 ? 'clamp(18px,2.1vw,23px)' : 'clamp(22px,2.8vw,30px)' }; })(), quoteCount: `${quote + 1} / ${this.quotes.length}`,
+      quote: this.quotes[quote], quoteCount: `${quote + 1} / ${this.quotes.length}`,
       prevQuote: () => this.setState(s => ({ quote: (s.quote + this.quotes.length - 1) % this.quotes.length })),
       nextQuote: () => this.setState(s => ({ quote: (s.quote + 1) % this.quotes.length })),
       reel, reelRef: this.reelRef, reelPrev: () => scrollReel(-1), reelNext: () => scrollReel(1),
