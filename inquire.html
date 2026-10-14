@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inquire · Nic Neumann Photography</title>
+<meta name="description" content="Tell Nic about your wedding, session or event.">
+<link rel="icon" href="assets/mark-brown.png">
+<script src="./support.js"></script>
+<script src="./booking-notice.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&amp;family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };</script>
+<script src="./form-timestamp.js"></script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+<style>html{scroll-behavior:smooth}body{margin:0;background:#FAF2EB;color:#372017;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#372017;text-underline-offset:5px;text-decoration-thickness:1px}a:hover{color:#716A43}input,select,textarea,button{font-family:inherit;color:inherit}::selection{background:#C1AD8C;color:#372017}</style>
+</helmet>
+
+<div style="min-height:100vh;background:#FAF2EB">
+
+  <div style="position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(250,242,235,0.96);border-bottom:1px solid rgba(193,173,140,0.6);transform:translateY({{ barY }});transition:transform .45s cubic-bezier(.2,.7,.2,1);backdrop-filter:blur(6px)">
+    <nav style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px 28px;padding:16px 20px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
+      <a href="portfolio.html" style="text-decoration:none" style-hover="text-decoration:underline">Portfolio</a>
+      <a href="about.html" style="text-decoration:none" style-hover="text-decoration:underline">About</a>
+      <a href="inquire.html" style="text-decoration:none" style-hover="text-decoration:underline">Inquire</a>
+    </nav>
+  </div>
+
+  <header id="top" style="display:flex;flex-direction:column;align-items:center;gap:26px;padding:48px 24px 16px">
+    <a href="index.html" style="display:block;line-height:0"><sc-if value="{{ logoMoss }}" hint-placeholder-val="{{ true }}"><img src="assets/primary-moss.png" alt="Nic Neumann Photography" style="width:min(420px,78vw);height:auto"></sc-if><sc-if value="{{ logoBrown }}" hint-placeholder-val="{{ false }}"><img src="assets/primary-brown.png" alt="Nic Neumann Photography" style="width:min(420px,78vw);height:auto"></sc-if></a>
+    <nav style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px 40px;font:500 12px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
+      <a href="portfolio.html" style="text-decoration:none" style-hover="text-decoration:underline">Portfolio</a>
+      <a href="about.html" style="text-decoration:none" style-hover="text-decoration:underline">About</a>
+      <a href="inquire.html" style="text-decoration:none" style-hover="text-decoration:underline">Inquire</a>
+    </nav>
+  </header>
+
+  <section id="inquire" style="padding:104px 24px 120px;scroll-margin-top:40px">
+    <div style="max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:48px 80px">
+     <div style="flex:0 0 auto;display:flex;justify-content:center">
+       <img src="assets/sublogo-mark-brown.png" alt="Nic Neumann Photography" style="width:clamp(180px,22vw,280px);height:auto;display:block">
+     </div>
+     <div style="flex:1 1 520px;max-width:760px;display:flex;flex-direction:column;gap:48px">
+      <div style="display:flex">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:14px;text-align:left">
+        <span style="font:500 12px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#716A43">Inquire</span>
+        <h2 style="margin:0;font:400 clamp(30px,4vw,44px)/1.1 'Crimson Pro',Georgia,serif;letter-spacing:.1em;text-transform:uppercase">Say hello</h2>
+        <p style="margin:0;max-width:520px;font:400 16px/1.7 Figtree,sans-serif;text-wrap:pretty">Prefer email? Reach me at <a href="mailto:hello@nicneumannphoto.com">hello@nicneumannphoto.com</a></p>
+        </div>
+      </div>
+      <sc-if value="{{ bookingClosed }}" hint-placeholder-val="{{ true }}">
+      <div role="note" style="display:flex;flex-direction:column;gap:12px;padding:28px 32px;background:rgba(113,106,67,0.16);outline:1px solid #C1AD8C;outline-offset:-8px">
+        <span style="font:500 11px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#5E5836">A quick note</span>
+        <h3 style="margin:0;font:400 26px/1.2 'Crimson Pro',Georgia,serif;letter-spacing:.06em;text-transform:uppercase;text-wrap:balance">Booking is closed for the rest of 2026</h3>
+        <p style="margin:0;font:400 15px/1.7 Figtree,sans-serif;text-wrap:pretty">Thank you so much for thinking of me! My calendar is full through the end of 2026, so every current client gets my full attention and their gallery right on time. I’m happily booking 2027 dates and would love to hear about yours. Need a photographer sooner? <a href="mailto:hello@nicneumannphoto.com?subject=Photographer%20referral%20request&amp;body=Hi%20Nic%2C%20I%20would%20love%20a%20referral.%20My%20date%20is%3A%20" style="font-weight:600">Ask me for a referral</a>.</p>
+      </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column">
+      <div data-fs-success style="font:italic 300 28px/1.35 'Crimson Pro',Georgia,serif;text-align:center;color:#716A43"></div>
+      <div data-fs-error style="font:400 15px/1.6 Figtree,sans-serif;color:#8a2f1f;text-align:center"></div>
+        <form id="inquiry-form" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:34px 40px">
+          <input type="hidden" name="_subject" value="New inquiry — Nic Neumann Photography">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+          <label style="display:flex;flex-direction:column;gap:10px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">Your name(s)
+            <input required="" name="name" placeholder="Jamie &amp; Alex" style="border:0;border-bottom:1px solid #372017;background:transparent;padding:10px 0;font:400 16px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;outline:none" data-fs-field>
+            <span data-fs-error="name" style="font:400 13px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;color:#8a2f1f"></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:10px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">Email
+            <input required="" type="email" name="email" placeholder="you@email.com" style="border:0;border-bottom:1px solid #372017;background:transparent;padding:10px 0;font:400 16px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;outline:none" data-fs-field>
+            <span data-fs-error="email" style="font:400 13px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;color:#8a2f1f"></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:10px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">What are we celebrating?
+            <select name="type" data-fs-field style="border:0;border-bottom:1px solid #372017;background:transparent;padding:10px 0;font:400 16px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;outline:none;border-radius:0">
+              <option>Wedding / elopement</option><option>Couples / engagement</option><option>Family</option><option>Headshots</option><option>Senior portraits</option><option>Event</option><option>Something else</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:10px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">Date or season
+            <input name="date" data-fs-field placeholder="June 2027, flexible" style="border:0;border-bottom:1px solid #372017;background:transparent;padding:10px 0;font:400 16px/1.4 Figtree,sans-serif;letter-spacing:0;text-transform:none;outline:none">
+          </label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:10px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">Tell me about you
+            <textarea name="msg" data-fs-field rows="4" placeholder="How you met, who’s coming, the spot you’re dreaming of…" style="border:0;border-bottom:1px solid #372017;background:transparent;padding:10px 0;font:400 16px/1.6 Figtree,sans-serif;letter-spacing:0;text-transform:none;outline:none;resize:vertical"></textarea>
+          </label>
+          <div style="grid-column:1/-1;display:flex;justify-content:center;padding-top:8px">
+            <button type="submit" data-fs-submit-btn style="border:0;background:#716A43;color:#FAF2EB;padding:18px 40px;cursor:pointer;font:500 12px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase" style-hover="background:#372017">Send it my way</button>
+          </div>
+        </form>
+      </div>
+     </div>
+    </div>
+  </section>
+
+  <footer style="background:#372017;color:#FAF2EB;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
+    <img src="assets/location-cream.png" alt="Nic Neumann Photography — Denver, Colorado" style="width:min(320px,72vw);height:auto">
+    <nav style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;font:500 11px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase">
+      <a href="index.html" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">Home</a>
+      <a href="portfolio.html" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">Portfolio</a>
+      <a href="about.html" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">About</a>
+      <a href="index.html#notes" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">{{ shoutNav }}</a>
+      <a href="inquire.html" style="color:#FAF2EB;text-decoration:none" style-hover="text-decoration:underline">Inquire</a>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px 30px;font:400 15px/1.4 Figtree,sans-serif">
+      <a href="mailto:hello@nicneumannphoto.com" style="color:#FAF2EB;text-decoration:underline">hello@nicneumannphoto.com</a>
+      <a href="https://www.instagram.com/nickneumannphoto/" style="color:#FAF2EB;text-decoration:underline">Instagram</a>
+      <a href="https://www.facebook.com/nickneumannphoto" style="color:#FAF2EB;text-decoration:underline">Facebook</a>
+    </div>
+    <div style="width:100%;max-width:1200px;height:1px;background:rgba(193,173,140,0.4)"></div>
+    <span style="font:400 12px/1 Figtree,sans-serif;letter-spacing:.08em;color:#E9DCCB">© 2026 Nic Neumann Photography · Denver, Colorado</span>
+  </footer>
+
+  
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;logoColor&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Moss Green&quot;,&quot;Dark Brown&quot;],&quot;default&quot;:&quot;Moss Green&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;shoutTitle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Notes From Friends&quot;,&quot;Client Love Notes&quot;,&quot;Shout-Outs&quot;,&quot;Client Raves&quot;],&quot;default&quot;:&quot;Notes From Friends&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;heroTiles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;3&quot;,&quot;4&quot;],&quot;default&quot;:&quot;3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:5,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;default&quot;:9,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { mob: 0, frames: [0, 0, 0, 0], hover: null, gallery: null, quote: 0, sent: false, scrolled: false, hash: (typeof location !== 'undefined' ? location.hash : '') };
+  reelRef = React.createRef();
+  cats = [
+    { key: 'weddings', label: 'Weddings', sub: 'Big celebrations & mountaintop elopements' },
+    { key: 'couples', label: 'Couples', sub: 'Engagements, anniversaries, just because' },
+    { key: 'families', label: 'Families', sub: 'Little ones, big ones, the whole crew' },
+  ];
+  moreCats = [
+    { key: 'headshots', label: 'Headshots', sub: 'Approachable, professional, you' },
+    { key: 'seniors', label: 'Seniors', sub: 'Celebrating the class of right now' },
+    { key: 'events', label: 'Events', sub: 'Parties, milestones & gatherings' },
+  ];
+  quotes = [
+    { text: 'Nic made us feel like we were hanging out with an old friend. We forgot there was a camera — and somehow every single photo looks exactly like us.', who: 'Emma & Jake', what: 'Wedding' },
+    { text: 'Wrangling three kids and a dog is no small feat. Nic kept everyone laughing, and we finally have family photos we actually want on our walls.', who: 'The Martinez Family', what: 'Family session' },
+    { text: 'From our first email to the gallery reveal, everything felt easy and intentional. We cried looking through them. Twice.', who: 'Priya & Sam', what: 'Elopement' },
+  ];
+  initInquiry() {
+    const el = document.getElementById('inquiry-form');
+    if (el && el !== this.fsForm) { this.fsForm = el; window.formspree('initForm', { formElement: '#inquiry-form', formId: 'mppqppqv' }); }
+  }
+  componentDidUpdate() { this.initInquiry(); }
+  componentDidMount() {
+    this.initInquiry();
+    this.onScroll = () => { const s = window.scrollY > 280; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    this.onHash = () => this.setState({ hash: location.hash }, () => {
+      const id = location.hash.slice(1);
+      if (id && id !== 'availability') { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 40); }
+      else if (id === 'availability') window.scrollTo(0, 0);
+    });
+    this.onKey = (e) => { if (this.state.gallery && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { this.galStep(e.key === 'ArrowRight' ? 1 : -1); this.startGalTimer(); return; } if (e.key !== 'Escape') return; if (this.state.gallery) this.closeGallery(); else if (this.state.portfolio) { document.body.style.overflow = ''; this.setState({ portfolio: false }); } };
+    this.onResize = () => { const w = window.innerWidth >= 640; if (w !== this.state.wide) this.setState({ wide: w }); };
+    this.onResize(); window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('hashchange', this.onHash);
+    window.addEventListener('keydown', this.onKey);
+    if (location.hash.length > 1) setTimeout(this.onHash, 400);
+    if (!window.NNP_GALLERIES) this.dataTimer = setInterval(() => { if (window.NNP_GALLERIES) { clearInterval(this.dataTimer); this.forceUpdate(); } }, 100);
+  }
+  componentDidUpdate(prev) {
+    
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer); clearInterval(this.dataTimer);
+    window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('hashchange', this.onHash);
+    window.removeEventListener('keydown', this.onKey); clearInterval(this.galTimer);
+  }
+  tileCount() { return parseInt(this.props.heroTiles ?? '3', 10); }
+  startTimer() {
+    clearInterval(this.timer);
+    const n = this.tileCount();
+    const per = (this.props.heroSpeed ?? 9) * 1000;
+    let col = 0;
+    this.timer = setInterval(() => {
+      this.setState(s => { const f = s.frames.slice(); f[col] = (f[col] + 1) % 4; return { frames: f, mob: ((s.mob || 0) + 1) % (n * 4) }; });
+      col = (col + 1) % n;
+    }, per / n);
+  }
+  galKeys() { const G = window.NNP_GALLERIES || {}; return [...this.cats, ...this.moreCats].filter(c => (G[c.key] || []).length).map(c => c.key); }
+  galStep(d) {
+    const G = window.NNP_GALLERIES || {}; const keys = this.galKeys();
+    this.setState(s => {
+      if (!s.gallery) return null;
+      let k = s.gallery, i = (s.gIdx || 0) + d; const len = (G[k] || []).length;
+      if (i >= len) { k = keys[(keys.indexOf(k) + 1) % keys.length]; i = 0; }
+      else if (i < 0) { k = keys[(keys.indexOf(k) - 1 + keys.length) % keys.length]; i = (G[k] || []).length - 1; }
+      return { gallery: k, gIdx: i };
+    });
+  }
+  startGalTimer() { clearInterval(this.galTimer); this.galTimer = setInterval(() => this.galStep(1), 14000); }
+  openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, gIdx: 0, hover: null }); this.startGalTimer(); }
+  closeGallery = () => { clearInterval(this.galTimer); if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
+  renderVals() {
+    const n = this.tileCount();
+    const { frames, hover, quote } = this.state;
+    const shoutMap = {
+      'Notes From Friends': 'Notes',
+      'Client Love Notes': 'Love Notes',
+      'Shout-Outs': 'Shout-Outs',
+      'Client Raves': 'Raves',
+    };
+    const shoutTitle = this.props.shoutTitle ?? 'Notes From Friends';
+    const hero = Array.from({ length: n }, (_, c) => ({
+      frames: [0, 1, 2, 3].map(f => ({ near: frames[c] === f || (frames[c] + 1) % 4 === f, id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of 4`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
+      dots: [0, 1, 2].map(f => ({ bg: frames[c] === f ? '#FAF2EB' : 'transparent', onClick: () => this.setState(s => { const fr = s.frames.slice(); fr[c] = f; return { frames: fr }; }) })),
+    }));
+    if (this.state.wide === false) {
+      const all = hero.flatMap(h => h.frames);
+      const act = (this.state.mob || 0) % all.length;
+      hero.splice(0, hero.length, { frames: all.map((fr, i) => ({ ...fr, near: i === act || i === (act + 1) % all.length, op: i === act ? 1 : 0, pe: i === act ? 'auto' : 'none' })), dots: [] });
+    }
+    const mk = (c) => {
+      const h = hover === c.key;
+      return { ...c, src: ((window.NNP_GALLERIES || {}).covers || {})[c.key] || '', slot: `cat-${c.key}`, ph: `${c.label} cover photo`, scale: h ? 1.05 : 1, scrim: h ? 1 : 0, pe: h ? 'auto' : 'none', y: h ? '0px' : '14px', line: h ? '56px' : '0px',
+        enter: () => this.setState({ hover: c.key }), leave: () => this.setState({ hover: null }), open: () => this.openGallery(c.key) };
+    };
+    const offs = ['0px', '64px', '28px'];
+    const cats = this.cats.map((c, i) => ({ ...mk(c), offset: offs[i % 3] }));
+    const allList = [...this.cats, ...this.moreCats];
+    const allCats = allList.map((c, i) => ({ ...mk(c), offset: offs[i % 3] }));
+    const g = allList.find(c => c.key === this.state.gallery);
+    const gp = g ? ((window.NNP_GALLERIES || {})[g.key] || []) : [];
+    const gi = Math.min(this.state.gIdx || 0, Math.max(gp.length - 1, 0));
+    const gkeys = this.galKeys();
+    const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gi + 1} / ${gp.length}` : '',
+      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: `${g.label} photo ${i + 1}`, op: i === gi ? 1 : 0 }; }),
+      slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })),
+      tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, gIdx: 0 }); this.startGalTimer(); } })) } : { label: '', sub: '', slots: [], photos: [], tabs: [] };
+    const galPrev = () => { this.galStep(-1); this.startGalTimer(); };
+    const galNext = () => { this.galStep(1); this.startGalTimer(); };
+    const widths = ['260px', '340px', '260px', '560px', '260px', '320px', '260px', '480px', '260px', '340px'];
+    const reelSrc = (window.NNP_GALLERIES || {}).reel || [];
+    const reel = widths.map((w, i) => ({ id: `reel-${i + 1}`, src: reelSrc[i] || '', w: `min(${w}, 78vw)`, video: false, ph: (i === 1 || i === 5 || i === 8) ? 'Video clip (poster frame)' : 'Recent photo' }));
+    const scrollReel = (d) => { const el = this.reelRef.current; if (el) el.scrollBy({ left: d * Math.min(520, el.clientWidth * 0.8), behavior: 'smooth' }); };
+    const avail = false;
+    return {
+      showMain: !avail, bookingClosed: Date.now() < Date.parse('2027-01-01T00:00:00-07:00'), showAvail: avail, ctaSrc: (window.NNP_GALLERIES || {}).cta || '',
+      logoMoss: (this.props.logoColor ?? 'Moss Green') === 'Moss Green', logoBrown: (this.props.logoColor ?? 'Moss Green') !== 'Moss Green', 
+      barY: this.state.scrolled ? '0%' : '-105%',
+      shoutTitle, shoutNav: shoutMap[shoutTitle] ?? shoutTitle,
+      hero, heroMax: n === 3 ? '1360px' : '1200px', heroCol: n === 3 ? 'max(calc(33.333% - 10px), min(100%, calc((640px - 100%) * 999)))' : 'max(calc(25% - 11px), min(calc(50% - 7px), calc((760px - 100%) * 999)))',
+      cats, allCats, galleryOpen: !!g, gallery, galPrev, galNext, closeGallery: this.closeGallery,
+      portfolioOpen: !!this.state.portfolio,
+      openPortfolio: () => { document.body.style.overflow = 'hidden'; this.setState({ portfolio: true, hover: null }); },
+      closePortfolio: () => { document.body.style.overflow = ''; this.setState({ portfolio: false, gallery: null }); },
+      galleryInquire: () => { location.href = 'inquire.html'; },
+      quote: this.quotes[quote], quoteCount: `${quote + 1} / ${this.quotes.length}`,
+      prevQuote: () => this.setState(s => ({ quote: (s.quote + this.quotes.length - 1) % this.quotes.length })),
+      nextQuote: () => this.setState(s => ({ quote: (s.quote + 1) % this.quotes.length })),
+      reel, reelRef: this.reelRef, reelPrev: () => scrollReel(-1), reelNext: () => scrollReel(1),
+      notSent: !this.state.sent, sent: this.state.sent,
+      submitUnused: (e) => { e.preventDefault(); const fd = new FormData(e.target); this.setState({ sending: true, sendError: false }); fetch('https://formspree.io/f/mppqppqv', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd }).then(r => { if (!r.ok) throw new Error(r.status); e.target.reset(); this.setState({ sent: true, sending: false }); }).catch(() => this.setState({ sending: false, sendError: true })); },
+      sendError: !!this.state.sendError, btnLabel: this.state.sending ? 'Sending…' : 'Send it my way',
+      goHome: (e) => { e.preventDefault(); history.pushState(null, '', location.pathname + location.search); this.setState({ hash: '' }); window.scrollTo(0, 0); },
+    };
+  }
+}
+</script>
+</body>
+</html>
