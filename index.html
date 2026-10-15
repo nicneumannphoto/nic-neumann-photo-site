@@ -43,11 +43,11 @@
       <sc-for list="{{ hero }}" as="col" hint-placeholder-count="3">
         <div style="position:relative">
           <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#F1E6DA">
-            <sc-for list="{{ col.frames }}" as="fr" hint-placeholder-count="3">
-              <div style="position:absolute;inset:0;opacity:{{ fr.op }};filter:opacity(0.9);pointer-events:{{ fr.pe }};transition:opacity 1.8s ease">
+            <div style="position:absolute;inset:0;opacity:0.9"><sc-for list="{{ col.frames }}" as="fr" hint-placeholder-count="3">
+              <div style="position:absolute;inset:0;opacity:{{ fr.op }};z-index:{{ fr.z }};pointer-events:{{ fr.pe }};transition:opacity 2.6s cubic-bezier(.45,0,.25,1)">
                 <sc-if value="{{ fr.near }}" hint-placeholder-val="{{ false }}"><img src="{{ fr.src }}" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if>
               </div>
-            </sc-for>
+            </sc-for></div>
           </div>
         </div>
       </sc-for>
@@ -65,11 +65,10 @@
   </section>
 
   <section style="padding:0 24px 112px">
-    <div style="display:flex;flex-wrap:wrap;gap:12px">
-      <a href="portfolio.html" style="display:block;position:relative;flex:1.5 1 180px;aspect-ratio:1.5;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-02.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
-      <a href="portfolio.html" style="display:block;position:relative;flex:0.667 1 80px;aspect-ratio:0.667;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-03.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
-      <a href="portfolio.html" style="display:block;position:relative;flex:1.5 1 180px;aspect-ratio:1.5;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-04.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
-      <a href="portfolio.html" style="display:block;position:relative;flex:0.667 1 80px;aspect-ratio:0.667;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-05.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
+    <div style="display:flex;gap:12px">
+      <a href="portfolio.html" style="display:block;position:relative;flex:1.5 1 0;aspect-ratio:1.5;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-02.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
+      <a href="portfolio.html" style="display:block;position:relative;flex:0.667 1 0;aspect-ratio:0.667;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-03.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a>
+      <sc-if value="{{ wideView }}" hint-placeholder-val="{{ true }}"><a href="portfolio.html" style="display:block;position:relative;flex:1.5 1 0;aspect-ratio:1.5;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-04.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a><a href="portfolio.html" style="display:block;position:relative;flex:0.667 1 0;aspect-ratio:0.667;overflow:hidden;background:#F1E6DA"><img src="photos/home/home-05.jpg" alt="Nic Neumann Photography" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a></sc-if>
     </div>
   </section>
 
@@ -215,6 +214,7 @@ class Component extends DCLogic {
       return { gallery: k, gIdx: i };
     });
   }
+  layer(cur, f, len) { const prev = (cur - 1 + len) % len; return f === cur ? { op: 1, z: 2 } : f === prev ? { op: 1, z: 1 } : { op: 0, z: 0 }; }
   startGalTimer() { clearInterval(this.galTimer); this.galTimer = setInterval(() => this.galStep(1), 14000); }
   openGallery(key) { document.body.style.overflow = 'hidden'; this.setState({ gallery: key, gIdx: 0, hover: null }); this.startGalTimer(); }
   closeGallery = () => { clearInterval(this.galTimer); if (!this.state.portfolio) document.body.style.overflow = ''; this.setState({ gallery: null }); };
@@ -229,13 +229,13 @@ class Component extends DCLogic {
     };
     const shoutTitle = this.props.shoutTitle ?? 'Notes From Friends';
     const hero = Array.from({ length: n }, (_, c) => ({
-      frames: Array.from({ length: this.fl(c) }, (_, f) => ({ near: frames[c] === f || (frames[c] + 1) % this.fl(c) === f, id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of ${this.fl(c)}`, op: frames[c] === f ? 1 : 0, pe: frames[c] === f ? 'auto' : 'none' })),
+      frames: Array.from({ length: this.fl(c) }, (_, f) => ({ near: frames[c] === f || (frames[c] + 1) % this.fl(c) === f || (frames[c] - 1 + this.fl(c)) % this.fl(c) === f, ...this.layer(frames[c], f, this.fl(c)), id: `hero-${c + 1}-${f + 1}`, src: (((window.NNP_GALLERIES || {}).hero || [])[c] || [])[f] || '', ph: `Hero photo ${c + 1} · ${f + 1} of ${this.fl(c)}`, pe: frames[c] === f ? 'auto' : 'none' })),
       dots: Array.from({ length: this.fl(c) }, (_, f) => ({ bg: frames[c] === f ? '#FAF2EB' : 'transparent', onClick: () => this.setState(s => { const fr = s.frames.slice(); fr[c] = f; return { frames: fr }; }) })),
     }));
     if (this.state.wide === false) {
       const all = hero.flatMap(h => h.frames);
       const act = (this.state.mob || 0) % all.length;
-      hero.splice(0, hero.length, { frames: all.map((fr, i) => ({ ...fr, near: i === act || i === (act + 1) % all.length, op: i === act ? 1 : 0, pe: i === act ? 'auto' : 'none' })), dots: [] });
+      hero.splice(0, hero.length, { frames: all.map((fr, i) => ({ ...fr, near: i === act || i === (act + 1) % all.length || i === (act - 1 + all.length) % all.length, ...this.layer(act, i, all.length), pe: i === act ? 'auto' : 'none' })), dots: [] });
     }
     const mk = (c) => {
       const h = hover === c.key;
@@ -265,6 +265,7 @@ class Component extends DCLogic {
       showMain: !avail, bookingClosed: Date.now() < Date.parse('2027-01-01T00:00:00-07:00'), showAvail: avail, ctaSrc: (window.NNP_GALLERIES || {}).cta || '',
       logoMoss: (this.props.logoColor ?? 'Moss Green') === 'Moss Green', logoBrown: (this.props.logoColor ?? 'Moss Green') !== 'Moss Green', 
       barY: this.state.scrolled ? '0%' : '-105%',
+      wideView: this.state.wide !== false,
       shoutTitle, shoutNav: shoutMap[shoutTitle] ?? shoutTitle,
       hero, heroMax: n === 3 ? '1360px' : '1200px', heroCol: n === 3 ? 'max(calc(33.333% - 10px), min(100%, calc((640px - 100%) * 999)))' : 'max(calc(25% - 11px), min(calc(50% - 7px), calc((760px - 100%) * 999)))',
       cats, allCats, galleryOpen: !!g, gallery, galPrev, galNext, closeGallery: this.closeGallery,
