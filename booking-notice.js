@@ -40,10 +40,10 @@
         '<img src="assets/mark-brown.png" alt="">' +
         '<span class="nnp-ey">A quick note</span>' +
         '<h2 id="nnp-title">Booking is closed for the rest of 2026</h2>' +
-        '<p>Thank you so much for thinking of me! My calendar is full through the end of 2026, so every current client gets my full attention and their gallery right on time. I’m happily booking 2027 dates and would love to hear about yours.</p>' +
+        '<p>Thank you so much for thinking of me! My calendar is full through the end of 2026, so every current client gets my full attention and their gallery right on time. I’m happily booking 2027 and 2028 dates and would love to hear about yours.</p>' +
         '<p>Need a photographer sooner? I’m glad to refer you to talented local photographers I know and trust.</p>' +
         '<div class="nnp-ac">' +
-          '<a class="nnp-bt nnp-p" href="inquire.html">Inquire about 2027</a>' +
+          '<a class="nnp-bt nnp-p" href="inquire.html">Inquire about 2027 &amp; 2028</a>' +
           '<a class="nnp-bt nnp-g" href="' + referral + '">Ask for a referral</a>' +
         '</div>' +
       '</div>';

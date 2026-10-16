@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Availability · Nic Neumann Photography</title>
 <meta name="description" content="Check Nic Neumann Photography availability.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://nicneumannphoto.com/availability.html">
 <link rel="icon" href="assets/mark-brown.png">
 <script src="./support.js"></script>
 <script src="./booking-notice.js" defer></script>
@@ -18,7 +20,7 @@
 </helmet>
 
 <div style="min-height:100vh;background:#FAF2EB;display:flex;flex-direction:column;align-items:center;padding:48px 20px 72px;gap:40px">
-  <a href="index.html" style="display:block;line-height:0"><img src="assets/primary-brown.png" alt="Nic Neumann Photography" style="width:min(360px,72vw);height:auto"></a>
+  <a href="/" style="display:block;line-height:0"><img src="assets/primary-brown.png" alt="Nic Neumann Photography" style="width:min(360px,72vw);height:auto"></a>
   <div style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;max-width:640px">
     <span style="font:500 12px/1 Figtree,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#716A43">Just for you</span>
     <h1 style="margin:0;font:400 clamp(30px,4.4vw,46px)/1.1 'Crimson Pro',Georgia,serif;letter-spacing:.1em;text-transform:uppercase">Check my availability</h1>
@@ -143,7 +145,7 @@ class Component extends DCLogic {
     const gi = Math.min(this.state.gIdx || 0, Math.max(gp.length - 1, 0));
     const gkeys = this.galKeys();
     const gallery = g ? { label: g.label, sub: g.sub, hasPhotos: gp.length > 0, noPhotos: gp.length === 0, count: gp.length ? `${gi + 1} / ${gp.length}` : '',
-      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: `${g.label} photo ${i + 1}`, op: i === gi ? 1 : 0 }; }),
+      photos: gp.map((src, i) => { const near = Math.abs(i - gi) <= 1 || (gi === gp.length - 1 && i === 0); return { src, near, alt: (window.nnpAlt ? window.nnpAlt(src, i) : `${g.label} photo ${i + 1}`), op: i === gi ? 1 : 0 }; }),
       slots: Array.from({ length: 9 }, (_, i) => ({ id: `gal-${g.key}-${i + 1}`, ph: `${g.label} photo ${i + 1}` })),
       tabs: allList.filter(c => gkeys.includes(c.key)).map(c => ({ label: c.label, color: c.key === g.key ? '#FAF2EB' : 'rgba(250,242,235,0.6)', line: c.key === g.key ? '#FAF2EB' : 'transparent', go: () => { this.setState({ gallery: c.key, gIdx: 0 }); this.startGalTimer(); } })) } : { label: '', sub: '', slots: [], photos: [], tabs: [] };
     const galPrev = () => { this.galStep(-1); this.startGalTimer(); };

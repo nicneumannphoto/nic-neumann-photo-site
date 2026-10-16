@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /availability.html
+
+Sitemap: https://nicneumannphoto.com/sitemap.xml
