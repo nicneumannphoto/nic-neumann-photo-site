@@ -132,3 +132,22 @@ blockquote footer span{color:var(--moss)}
 
 @media (max-width:640px){.section{padding:64px 0}.note{padding:22px 20px}.tip{grid-template-columns:40px 1fr}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Mountain Weddings: planning-help photo that fades in from the left and runs full colour to the page edge */
+.tips-sec{position:relative;overflow:hidden}
+.tips-photo{margin:0;position:absolute;top:0;right:0;bottom:0;width:min(40vw,620px);z-index:0;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.35) 30%,#000 78%);
+  mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.35) 30%,#000 78%)}
+.tips-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.tips-sec .wrap{position:relative;z-index:1}
+@media (min-width:1000px){
+  .tips-sec .wrap{max-width:none;margin:0;padding-left:max(24px,calc((100vw - 1160px)/2 + 24px));padding-right:calc(min(40vw,620px) + 8px)}
+}
+@media (max-width:999px){
+  .tips-sec{display:flex;flex-direction:column}
+  .tips-sec .wrap{order:1}
+  .tips-photo{order:2;position:relative;width:100%;height:340px;margin-top:40px;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 25%,#000 70%);
+    mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 25%,#000 70%)}
+  .tips-sec{padding-bottom:0}
+}
