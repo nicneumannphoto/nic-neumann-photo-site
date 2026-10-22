@@ -8,7 +8,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.7}
+body{margin:0;background:#FFFFFF;color:var(--brown);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.7}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--brown);text-underline-offset:5px;text-decoration-thickness:1px}
 a:hover{color:var(--moss-dark)}
